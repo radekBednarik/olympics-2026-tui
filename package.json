@@ -17,20 +17,19 @@
   "packageManager": "pnpm@10.28.0",
   "devDependencies": {
     "@biomejs/biome": "^2.3.14",
-    "@types/ink": "^2.0.3",
     "@types/node": "^25.2.1",
-    "@types/react": "^19.2.13",
+    "@types/react": "18",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "@playwright/cli": "^0.0.65",
     "date-fns": "^4.1.0",
-    "ink": "^6.6.0",
+    "ink": "^5.2.1",
     "ink-spinner": "^5.0.0",
     "ink-tab": "^5.2.0",
     "ink-text-input": "^6.0.0",
     "playwright": "^1.58.1",
-    "react": "^19.2.4"
+    "react": "18"
   }
 }
