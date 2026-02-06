@@ -4,7 +4,8 @@ import type { ScrapeResult } from "../types.js";
 export const scrapeUrl = async (url: string): Promise<ScrapeResult> => {
   const browser = await chromium.launch();
   try {
-    const page = await browser.newPage();
+    const context = await browser.newContext({ ignoreHTTPSErrors: true });
+    const page = await context.newPage();
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
 
     const title = await page.title();

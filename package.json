@@ -6,7 +6,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "biome:check": "biome check",
+    "biome:check": "biome check --write",
     "tsc:check": "tsc --noEmit",
     "build": "tsc",
     "start": "node dist/index.js"
