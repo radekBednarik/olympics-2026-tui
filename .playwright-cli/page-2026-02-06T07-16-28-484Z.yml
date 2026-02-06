@@ -1,0 +1,306 @@
+- generic [ref=e3]:
+  - link [ref=e5] [cursor=pointer]:
+    - /url: /en/milano-cortina-2026/medals#mainContent
+    - text: Skip to main content
+  - generic [ref=e6]:
+    - banner [ref=e11]:
+      - generic [ref=e12]:
+        - generic [ref=e15]:
+          - navigation "Quick links" [ref=e21]:
+            - heading "Quick links" [level=2] [ref=e22]
+            - list [ref=e23]:
+              - listitem [ref=e24]:
+                - link "Ticketing" [ref=e25] [cursor=pointer]:
+                  - /url: "https://tickets.milanocortina2026.org/en/?utm_medium=ioc_website&utm_source=olympics.com&utm_campaign=mico_gtweb "
+                  - img [ref=e26]
+                  - text: Ticketing
+              - listitem [ref=e27]:
+                - link "Hospitality" [ref=e28] [cursor=pointer]:
+                  - /url: https://hospitality.milanocortina2026.org/en?utm_source=web&utm_medium=display&utm_campaign=int_ioc_mc26_web_hero_banner
+                  - img [ref=e29]
+                  - text: Hospitality
+              - listitem [ref=e30]:
+                - link "Shop" [ref=e31] [cursor=pointer]:
+                  - /url: "https://shop.olympics.com/en/milano-cortina-2026/t-35589049+z-9774796-1238555770?_s=bm-fi-ioc-prtsite-IOC-MiCo26-topbutton-am "
+                  - img [ref=e32]
+                  - text: Shop
+          - navigation "Main Navigation" [ref=e38]:
+            - heading "Main Navigation" [level=2] [ref=e39]
+            - list [ref=e40]:
+              - listitem [ref=e41]:
+                - link "Olympic Winter Games Milano Cortina 2026" [ref=e42] [cursor=pointer]:
+                  - /url: https://www.olympics.com/en/milano-cortina-2026
+                  - img "Olympic Winter Games Milano Cortina 2026" [ref=e43]
+              - listitem [ref=e44]:
+                - list [ref=e45]:
+                  - listitem [ref=e46]:
+                    - link "Olympic Torch Relay" [ref=e47] [cursor=pointer]:
+                      - /url: /en/milano-cortina-2026/olympic-torch-relay
+                  - listitem [ref=e48]:
+                    - link "Schedule & Results" [ref=e49] [cursor=pointer]:
+                      - /url: /en/milano-cortina-2026/schedule
+            - list [ref=e50]:
+              - listitem
+              - listitem [ref=e51]:
+                - 'combobox "Current language: English - Click to change language" [ref=e53] [cursor=pointer]':
+                  - generic [ref=e55]: English
+                  - img [ref=e57]
+              - listitem [ref=e59]:
+                - button "Search" [ref=e60] [cursor=pointer]:
+                  - img "Search" [ref=e62]
+              - listitem [ref=e64]:
+                - button "Open main menu" [ref=e65] [cursor=pointer]:
+                  - img "Open main menu" [ref=e67]
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - list:
+                        - listitem:
+                          - link "Olympic Torch Relay":
+                            - /url: /en/milano-cortina-2026/olympic-torch-relay
+                            - generic: Olympic Torch Relay
+                        - listitem:
+                          - link "Schedule & Results":
+                            - /url: /en/milano-cortina-2026/schedule
+                            - generic: Schedule & Results
+                        - listitem:
+                          - link "Play & Win":
+                            - /url: /en/milano-cortina-2026/play-and-win
+                            - generic: Play & Win
+                    - generic:
+                      - list:
+                        - listitem:
+                          - button "Search":
+                            - generic:
+                              - img "Search"
+                        - listitem:
+                          - button "Open main menu":
+                            - generic:
+                              - img "Open main menu"
+    - main [ref=e72]:
+      - generic [ref=e77]:
+        - heading "Medal Table" [level=1] [ref=e78]:
+          - generic [ref=e79]: Medal Table
+        - navigation "Medals" [ref=e81]:
+          - list [ref=e82]:
+            - listitem [ref=e83]:
+              - link "Medal Table" [ref=e84] [cursor=pointer]:
+                - /url: /en/milano-cortina-2026/medals
+                - generic [ref=e85]: Medal Table
+            - listitem [ref=e86]:
+              - link "Medallists" [ref=e87] [cursor=pointer]:
+                - /url: /en/milano-cortina-2026/medals/medallists
+                - generic [ref=e88]: Medallists
+            - listitem [ref=e89]:
+              - link "Medals by Sport" [ref=e90] [cursor=pointer]:
+                - /url: /en/milano-cortina-2026/medals/medals-by-sport
+                - generic [ref=e91]: Medals by Sport
+    - generic [ref=e98]:
+      - generic [ref=e99]:
+        - generic [ref=e100]: Powered by
+        - img [ref=e101]
+      - generic [ref=e112]: Timing and scoring provided by OMEGA. Results powered by Deloitte.
+    - contentinfo [ref=e116]:
+      - generic [ref=e117]:
+        - generic [ref=e121]:
+          - generic [ref=e122]:
+            - generic [ref=e123]:
+              - img [ref=e124]
+              - link "Switch to Paralympic Games" [ref=e125] [cursor=pointer]:
+                - /url: /en/milano-cortina-2026/paralympic-games
+                - generic [ref=e126]: Switch to Paralympic Games
+                - img [ref=e127]
+            - generic "Download the Official App" [ref=e129]:
+              - generic [ref=e130]: Download the Official App
+              - list [ref=e131]:
+                - listitem:
+                  - link "Download Android Application":
+                    - /url: https://olympics.app.link/sGgEL9jkoVb
+                    - img "Download Android Application"
+                - listitem:
+                  - link "Download IOS Application":
+                    - /url: https://olympics.app.link/sGgEL9jkoVb
+                    - img "Download IOS Application"
+          - generic [ref=e132]:
+            - generic "The Games" [ref=e133]:
+              - generic [ref=e134]: The Games
+              - list [ref=e135]:
+                - listitem [ref=e136]:
+                  - link "Schedule" [ref=e137] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/schedule/overview
+                    - generic [ref=e138]: Schedule
+                - listitem [ref=e139]:
+                  - link "Sports" [ref=e140] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/sports
+                    - generic [ref=e141]: Sports
+                - listitem [ref=e142]:
+                  - link "Territories" [ref=e143] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/territories
+                    - generic [ref=e144]: Territories
+                - listitem [ref=e145]:
+                  - link "Venues" [ref=e146] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/venues
+                    - generic [ref=e147]: Venues
+                - listitem [ref=e148]:
+                  - link "Road to 2026" [ref=e149] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/road-to-2026/information
+                    - generic [ref=e150]: Road to 2026
+                - listitem [ref=e151]:
+                  - link "Olympic Torch Relay" [ref=e152] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/olympic-torch-relay
+                    - generic [ref=e153]: Olympic Torch Relay
+            - generic "Join the Games" [ref=e154]:
+              - generic [ref=e155]: Join the Games
+              - list [ref=e156]:
+                - listitem [ref=e157]:
+                  - link "Fan26" [ref=e158] [cursor=pointer]:
+                    - /url: "https://fan26.olympics.com/en/fan26 "
+                    - generic [ref=e159]: Fan26
+                - listitem [ref=e160]:
+                  - link "Italia dei Giochi" [ref=e161] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/italia-dei-giochi
+                    - generic [ref=e162]: Italia dei Giochi
+                - listitem [ref=e163]:
+                  - link "Become a Partner" [ref=e164] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/become-partner
+                    - generic [ref=e165]: Become a Partner
+                - listitem [ref=e166]:
+                  - link "Become an Impact Provider" [ref=e167] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/our-projects/impact-2026
+                    - generic [ref=e168]: Become an Impact Provider
+                - listitem [ref=e169]:
+                  - link "Become a Licencee" [ref=e170] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/become-licensee
+                    - generic [ref=e171]: Become a Licencee
+            - generic "About us" [ref=e172]:
+              - generic [ref=e173]: About us
+              - list [ref=e174]:
+                - listitem [ref=e175]:
+                  - link "About Milano Cortina 2026" [ref=e176] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/about-us
+                    - generic [ref=e177]: About Milano Cortina 2026
+                - listitem [ref=e178]:
+                  - link "Board of Directors" [ref=e179] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/about-us/the-board
+                    - generic [ref=e180]: Board of Directors
+                - listitem [ref=e181]:
+                  - link "Athletes' Commission CAT26" [ref=e182] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/about-us/athletes-commission
+                    - generic [ref=e183]: Athletes' Commission CAT26
+                - listitem [ref=e184]:
+                  - link "The Italian Spirit" [ref=e185] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/brand
+                    - generic [ref=e186]: The Italian Spirit
+                - listitem [ref=e187]:
+                  - link "Mascots" [ref=e188] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/brand/mascots
+                    - generic [ref=e189]: Mascots
+                - listitem [ref=e190]:
+                  - link "The Look of the Games" [ref=e191] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/brand/look-of-the-games
+                    - generic [ref=e192]: The Look of the Games
+                - listitem [ref=e193]:
+                  - link "The Medals" [ref=e194] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/brand/medals
+                    - generic [ref=e195]: The Medals
+                - listitem [ref=e196]:
+                  - link "Documents" [ref=e197] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/documents
+                    - generic [ref=e198]: Documents
+            - generic "Our Projects" [ref=e199]:
+              - generic [ref=e200]: Our Projects
+              - list [ref=e201]:
+                - listitem [ref=e202]:
+                  - link "Explore Projects" [ref=e203] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/our-projects
+                    - generic [ref=e204]: Explore Projects
+                - listitem [ref=e205]:
+                  - link "Label Gen26" [ref=e206] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/our-projects/label-gen26
+                    - generic [ref=e207]: Label Gen26
+                - listitem [ref=e208]:
+                  - link "Overview" [ref=e209] [cursor=pointer]:
+                    - /url: /en/milano-cortina-2026/our-projects/cultural-olympiad
+                    - generic [ref=e210]: Overview
+        - generic [ref=e214]:
+          - generic "Olympic Websites" [ref=e215]:
+            - generic [ref=e216]: Olympic Websites
+            - list [ref=e217]:
+              - listitem [ref=e218]:
+                - link "Olympic Channel" [ref=e219] [cursor=pointer]:
+                  - /url: https://www.olympics.com/en/olympic-channel
+                  - generic [ref=e220]: Olympic Channel
+              - listitem [ref=e221]:
+                - link "IOC" [ref=e222] [cursor=pointer]:
+                  - /url: https://www.olympics.com/ioc
+                  - generic [ref=e223]: IOC
+              - listitem [ref=e224]:
+                - link "Museum" [ref=e225] [cursor=pointer]:
+                  - /url: https://www.olympics.com/museum
+                  - generic [ref=e226]: Museum
+              - listitem [ref=e227]:
+                - link "Shop" [ref=e228] [cursor=pointer]:
+                  - /url: "https://shop.olympics.com/en/milano-cortina-2026/t-35589049+z-9774796-1238555770?_s=bm-fi-ioc-prtsite-IOC-MiCo26-topbutton-am "
+                  - generic [ref=e229]: Shop
+              - listitem [ref=e230]:
+                - link "Contact us" [ref=e231] [cursor=pointer]:
+                  - /url: /en/milano-cortina-2026/contact-us
+                  - generic [ref=e232]: Contact us
+          - generic "Follow us on social media" [ref=e233]:
+            - generic [ref=e234]: Follow us on social media
+            - list [ref=e235]:
+              - listitem:
+                - link "Spotify":
+                  - /url: https://open.spotify.com/artist/1h6Xm6QBDGfKihrrtNiD7R
+                  - img "Spotify"
+              - listitem:
+                - link "Facebook":
+                  - /url: https://www.facebook.com/OlimpiadiMilanoCortina2026
+                  - img "Facebook"
+              - listitem:
+                - link "Tik Tok":
+                  - /url: https://www.tiktok.com/@milanocortina2026
+                  - img "Tik Tok"
+              - listitem:
+                - link "YouTube":
+                  - /url: https://www.youtube.com/channel/UC-3ef0mTN_RDliSRsrIEbHg
+                  - img "YouTube"
+              - listitem:
+                - link "X":
+                  - /url: https://x.com/milanocortina26
+                  - img "X"
+              - listitem:
+                - link "LinkedIn":
+                  - /url: https://www.linkedin.com/company/milano-cortina-2026
+                  - img "LinkedIn"
+              - listitem:
+                - link "Instagram":
+                  - /url: https://www.instagram.com/milanocortina2026
+                  - img "Instagram"
+      - generic [ref=e239]:
+        - generic "Policies and Terms" [ref=e240]:
+          - generic [ref=e241]: Policies and Terms
+          - list [ref=e242]:
+            - listitem [ref=e243]:
+              - link "Cookie Policy" [ref=e244] [cursor=pointer]:
+                - /url: https://www.olympics.com/en/cookie-policy
+                - generic [ref=e245]: Cookie Policy
+            - listitem [ref=e246]:
+              - button "Cookie Settings" [ref=e247] [cursor=pointer]
+            - listitem [ref=e248]:
+              - link "Privacy Policy" [ref=e249] [cursor=pointer]:
+                - /url: https://www.olympics.com/en/privacy-policy
+                - generic [ref=e250]: Privacy Policy
+            - listitem [ref=e251]:
+              - link "Terms Of Service" [ref=e252] [cursor=pointer]:
+                - /url: https://www.olympics.com/en/terms-of-service
+                - generic [ref=e253]: Terms Of Service
+            - listitem [ref=e254]:
+              - link "Accessibility" [ref=e255] [cursor=pointer]:
+                - /url: /en/milano-cortina-2026/website-accessibility
+                - generic [ref=e256]: Accessibility
+        - generic [ref=e258]: Copyright 2026. All rights reserved

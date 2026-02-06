@@ -1,0 +1,25 @@
+{
+  "config": {
+    "intervalMinutes": 30
+  },
+  "scrapes": {
+    "medalTable": {
+      "url": "https://www.olympics.com/en/milano-cortina-2026/medals",
+      "timestamp": "",
+      "status": "PENDING",
+      "content": ""
+    },
+    "medallists": {
+      "url": "https://www.olympics.com/en/milano-cortina-2026/medals/medallists",
+      "timestamp": "",
+      "status": "PENDING",
+      "content": ""
+    },
+    "bySport": {
+      "url": "https://www.olympics.com/en/milano-cortina-2026/medals/medals-by-sport",
+      "timestamp": "",
+      "status": "PENDING",
+      "content": ""
+    }
+  }
+}
