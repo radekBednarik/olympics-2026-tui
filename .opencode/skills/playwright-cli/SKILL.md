@@ -15,3 +15,9 @@ compatibility: opencode
 Use me, when you need to visit, interact and inspect the web application.
 Use me, when url link is provided via prompt.
 Ask clarifying questions, if needed.
+
+## Documentation
+
+The @playwright/cli package, that is to be used by this skill, is available on this
+url: https://github.com/microsoft/playwright-cli.
+Always check it, so that you have up to date information about the tool usage.
