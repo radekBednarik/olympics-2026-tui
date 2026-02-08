@@ -3,11 +3,9 @@ import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import type { MedalWinner, WinnerDetail } from "../types.js";
 
-interface EventListProps {
-  sport: string;
-  events: MedalWinner[];
+interface MedalWinnersViewProps {
+  data: MedalWinner[];
   isActive: boolean;
-  onBack: () => void;
 }
 
 const hasWinnerData = (winner: MedalWinner): boolean =>
@@ -36,18 +34,16 @@ const WinnerLine: React.FC<{ medal: string; detail: WinnerDetail }> = ({
   );
 };
 
-export const EventList: React.FC<EventListProps> = ({
-  sport,
-  events,
+export const MedalWinnersView: React.FC<MedalWinnersViewProps> = ({
+  data,
   isActive,
-  onBack,
 }) => {
+  const decided = data.filter(hasWinnerData);
   const [cursor, setCursor] = useState(0);
   const [expanded, setExpanded] = useState<number | null>(null);
   const mountedRef = useRef(false);
 
   useEffect(() => {
-    // Skip the first tick to avoid processing the Enter keypress that mounted this component
     const id = setTimeout(() => {
       mountedRef.current = true;
     }, 50);
@@ -59,55 +55,28 @@ export const EventList: React.FC<EventListProps> = ({
       if (key.upArrow) {
         setCursor((prev) => Math.max(0, prev - 1));
       } else if (key.downArrow) {
-        setCursor((prev) => Math.min(events.length - 1, prev + 1));
+        setCursor((prev) => Math.min(decided.length - 1, prev + 1));
       } else if (key.return) {
         if (!mountedRef.current) return;
         setExpanded((prev) => (prev === cursor ? null : cursor));
-      } else if (key.escape || key.backspace || key.delete) {
-        if (!mountedRef.current) return;
-        onBack();
       }
     },
     { isActive }
   );
 
-  if (events.length === 0) {
-    return (
-      <Box flexDirection="column">
-        <Box borderStyle="single" borderColor="cyan" paddingX={1}>
-          <Text>
-            <Text color="gray">By Sport</Text> <Text color="gray">›</Text>{" "}
-            <Text bold color="cyan">
-              {sport}
-            </Text>
-          </Text>
-        </Box>
-        <Text color="yellow">No events available.</Text>
-      </Box>
-    );
+  if (decided.length === 0) {
+    return <Text color="yellow">No medal winners announced yet.</Text>;
   }
-
-  const decidedCount = events.filter(hasWinnerData).length;
 
   return (
     <Box flexDirection="column">
-      <Box borderStyle="single" borderColor="cyan" paddingX={1}>
-        <Text>
-          <Text color="gray">By Sport</Text> <Text color="gray">›</Text>{" "}
-          <Text bold color="cyan">
-            {sport}
-          </Text>
-          <Text color="gray">
-            {" "}
-            ({decidedCount}/{events.length} decided)
-          </Text>
-        </Text>
-      </Box>
+      <Text color="green" bold>
+        {decided.length} of {data.length} events decided
+      </Text>
       <Box marginTop={1} flexDirection="column">
-        {events.map((ev, i) => {
+        {decided.map((ev, i) => {
           const isSelected = i === cursor;
           const isExpanded = i === expanded;
-          const hasData = hasWinnerData(ev);
           return (
             <Box
               key={`${ev.sport}-${ev.event}-${String(i)}`}
@@ -115,17 +84,12 @@ export const EventList: React.FC<EventListProps> = ({
             >
               {isSelected ? (
                 <Text color="cyan" bold>
-                  ▸ {hasData ? "🏅 " : ""}
-                  {ev.event}
-                </Text>
-              ) : hasData ? (
-                <Text>
-                  {"  "}🏅 {ev.event}
+                  ▸ {ev.sport} — {ev.event}
                 </Text>
               ) : (
-                <Text color="gray">
+                <Text>
                   {"  "}
-                  {ev.event}
+                  {ev.sport} — {ev.event}
                 </Text>
               )}
               {isExpanded ? (
@@ -140,9 +104,7 @@ export const EventList: React.FC<EventListProps> = ({
         })}
       </Box>
       <Box marginTop={1}>
-        <Text color="gray">
-          ↑/↓ Navigate · Enter Expand · Esc Back · 🏅 has results
-        </Text>
+        <Text color="gray">↑/↓ Navigate · Enter Expand</Text>
       </Box>
     </Box>
   );

@@ -4,12 +4,14 @@ import { useState } from "react";
 
 interface CategoryListProps {
   categories: string[];
+  highlightedCategories: Set<string>;
   isActive: boolean;
   onSelect: (category: string) => void;
 }
 
 export const CategoryList: React.FC<CategoryListProps> = ({
   categories,
+  highlightedCategories,
   isActive,
   onSelect,
 }) => {
@@ -37,22 +39,39 @@ export const CategoryList: React.FC<CategoryListProps> = ({
 
   return (
     <Box flexDirection="column">
-      {categories.map((cat, i) => (
-        <Box key={cat}>
-          {i === cursor ? (
-            <Text color="cyan" bold>
-              ▸ {cat}
-            </Text>
-          ) : (
-            <Text>
-              {"  "}
-              {cat}
-            </Text>
-          )}
-        </Box>
-      ))}
+      <Text color="green" bold>
+        {highlightedCategories.size}/{categories.length} sports with results
+      </Text>
+      <Box marginTop={1} flexDirection="column">
+        {categories.map((cat, i) => {
+          const hasData = highlightedCategories.has(cat);
+          return (
+            <Box key={cat}>
+              {i === cursor ? (
+                <Text color="cyan" bold>
+                  ▸ {hasData ? "● " : "  "}
+                  {cat}
+                </Text>
+              ) : hasData ? (
+                <Text>
+                  {"  "}
+                  <Text color="green">● </Text>
+                  {cat}
+                </Text>
+              ) : (
+                <Text color="gray">
+                  {"    "}
+                  {cat}
+                </Text>
+              )}
+            </Box>
+          );
+        })}
+      </Box>
       <Box marginTop={1}>
-        <Text color="gray">↑/↓ Navigate · Enter Select</Text>
+        <Text color="gray">
+          ↑/↓ Navigate · Enter Select · <Text color="green">●</Text> has results
+        </Text>
       </Box>
     </Box>
   );

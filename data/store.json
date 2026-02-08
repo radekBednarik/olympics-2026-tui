@@ -5,7 +5,7 @@
   "scrapes": {
     "medalTable": {
       "url": "https://en.wikipedia.org/wiki/2026_Winter_Olympics_medal_table",
-      "timestamp": "2026-02-08T10:13:35.908Z",
+      "timestamp": "2026-02-08T10:23:29.715Z",
       "status": "DATA_AVAILABLE",
       "data": [
         {
@@ -76,7 +76,7 @@
     },
     "medalWinners": {
       "url": "https://en.wikipedia.org/wiki/List_of_2026_Winter_Olympics_medal_winners",
-      "timestamp": "2026-02-08T10:13:35.880Z",
+      "timestamp": "2026-02-08T10:23:29.708Z",
       "status": "DATA_AVAILABLE",
       "data": [
         {

@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import type { AppStore, MedalTableEntry, MedalWinner } from "../types.js";
 import { CategoryList } from "./CategoryList.js";
 import { EventList } from "./EventList.js";
+import { MedalWinnersView } from "./MedalWinnersView.js";
 
 interface DashboardProps {
   scrapes: AppStore["scrapes"];
@@ -48,6 +49,11 @@ const MedalTableView: React.FC<{
   );
 };
 
+const hasWinnerData = (winner: MedalWinner): boolean =>
+  winner.gold.name !== "" ||
+  winner.silver.name !== "" ||
+  winner.bronze.name !== "";
+
 const SportEventsView: React.FC<{
   data: MedalWinner[];
   isActive: boolean;
@@ -69,6 +75,16 @@ const SportEventsView: React.FC<{
 
   const categories = useMemo(() => Array.from(grouped.keys()), [grouped]);
 
+  const highlightedCategories = useMemo(() => {
+    const highlighted = new Set<string>();
+    for (const [sport, events] of grouped) {
+      if (events.some(hasWinnerData)) {
+        highlighted.add(sport);
+      }
+    }
+    return highlighted;
+  }, [grouped]);
+
   if (data.length === 0) {
     return <Text color="yellow">No medal winners data available yet.</Text>;
   }
@@ -88,6 +104,7 @@ const SportEventsView: React.FC<{
   return (
     <CategoryList
       categories={categories}
+      highlightedCategories={highlightedCategories}
       isActive={isActive}
       onSelect={setSelectedSport}
     />
@@ -133,10 +150,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ scrapes }) => {
             <Text color="red">Error: {activeScrape.error}</Text>
           ) : activeTab === "medalTable" ? (
             <MedalTableView data={scrapes.medalTable.data} />
+          ) : activeTab === "medalWinners" ? (
+            <MedalWinnersView
+              data={scrapes.medalWinners.data}
+              isActive={activeTab === "medalWinners"}
+            />
           ) : (
             <SportEventsView
               data={scrapes.medalWinners.data}
-              isActive={activeTab === "medalWinners" || activeTab === "bySport"}
+              isActive={activeTab === "bySport"}
             />
           )}
         </Box>
