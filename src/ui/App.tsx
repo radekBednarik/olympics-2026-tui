@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { scrapeMedalTable, scrapeMedalWinners } from "../services/scraper.js";
 import { loadStore, saveStore } from "../services/store.js";
 import { type AppStore, INITIAL_STORE } from "../types.js";
+import { CountdownTimer } from "./CountdownTimer.js";
 import { Dashboard } from "./Dashboard.js";
 import { Settings } from "./Settings.js";
 
@@ -176,6 +177,15 @@ export const App = () => {
           ) : (
             <Text>{statusMsg}</Text>
           )}
+          <CountdownTimer
+            lastScrapeTimestamp={
+              store.scrapes.medalTable.timestamp >
+              store.scrapes.medalWinners.timestamp
+                ? store.scrapes.medalTable.timestamp
+                : store.scrapes.medalWinners.timestamp
+            }
+            intervalMinutes={store.config.intervalMinutes}
+          />
         </Box>
       </Box>
 
