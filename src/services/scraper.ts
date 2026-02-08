@@ -85,12 +85,23 @@ export const scrapeMedalWinners = async (): Promise<
 
     // Extract sport sections: each sport is an h2 with a wikitable below it
     const data = await page.evaluate(() => {
+      const parseWinner = (text: string): { name: string; country: string } => {
+        if (!text) return { name: "", country: "" };
+        const parts = text.split("\u00A0");
+        if (parts.length >= 2) {
+          const country = parts[parts.length - 1] ?? "";
+          const name = parts.slice(0, -1).join(" ");
+          return { name: name.trim(), country: country.trim() };
+        }
+        return { name: text.trim(), country: "" };
+      };
+
       const results: {
         sport: string;
         event: string;
-        gold: string;
-        silver: string;
-        bronze: string;
+        gold: { name: string; country: string };
+        silver: { name: string; country: string };
+        bronze: { name: string; country: string };
       }[] = [];
       const content = document.querySelector(
         "#mw-content-text .mw-parser-output"
@@ -125,17 +136,17 @@ export const scrapeMedalWinners = async (): Promise<
           for (const row of Array.from(rows)) {
             const cells = Array.from(row.querySelectorAll("th, td"));
             const texts = cells.map((c) => c.textContent?.trim() ?? "");
-            // Typical layout: Event | Gold | Silver | Bronze
-            // Skip header rows and rows with too few cells
             if (texts.length < 4) continue;
             if (texts[0] === "Event" || texts[0] === "Games") continue;
 
+            const eventName = (texts[0] ?? "").replace(/details$/i, "").trim();
+
             results.push({
               sport: currentSport,
-              event: texts[0] ?? "",
-              gold: texts[1] ?? "",
-              silver: texts[2] ?? "",
-              bronze: texts[3] ?? "",
+              event: eventName,
+              gold: parseWinner(texts[1] ?? ""),
+              silver: parseWinner(texts[2] ?? ""),
+              bronze: parseWinner(texts[3] ?? ""),
             });
           }
         }

@@ -9,12 +9,17 @@ export interface MedalTableEntry {
   total: number;
 }
 
+export interface WinnerDetail {
+  name: string;
+  country: string;
+}
+
 export interface MedalWinner {
   sport: string;
   event: string;
-  gold: string;
-  silver: string;
-  bronze: string;
+  gold: WinnerDetail;
+  silver: WinnerDetail;
+  bronze: WinnerDetail;
 }
 
 export interface ScrapeResult<T = unknown> {

@@ -1,8 +1,10 @@
 import { Box, Text } from "ink";
 import { Tab, Tabs } from "ink-tab";
 import type React from "react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { AppStore, MedalTableEntry, MedalWinner } from "../types.js";
+import { CategoryList } from "./CategoryList.js";
+import { EventList } from "./EventList.js";
 
 interface DashboardProps {
   scrapes: AppStore["scrapes"];
@@ -46,83 +48,49 @@ const MedalTableView: React.FC<{
   );
 };
 
-const MedalWinnersView: React.FC<{
+const SportEventsView: React.FC<{
   data: MedalWinner[];
-}> = ({ data }) => {
-  if (data.length === 0) {
-    return <Text color="yellow">No medal winners data available yet.</Text>;
-  }
-  const eW = 32;
-  const wW = 26;
-  return (
-    <Box flexDirection="column">
-      <Box>
-        <Text bold>
-          {"Event".padEnd(eW)}
-          {"Gold".padEnd(wW)}
-          {"Silver".padEnd(wW)}
-          {"Bronze".padEnd(wW)}
-        </Text>
-      </Box>
-      <Text>{"─".repeat(eW + wW * 3)}</Text>
-      {data.map((row) => (
-        <Box key={`${row.sport}-${row.event}`}>
-          <Text>
-            {row.event.slice(0, eW - 2).padEnd(eW)}
-            {row.gold.slice(0, wW - 2).padEnd(wW)}
-            {row.silver.slice(0, wW - 2).padEnd(wW)}
-            {row.bronze.slice(0, wW - 2).padEnd(wW)}
-          </Text>
-        </Box>
-      ))}
-    </Box>
-  );
-};
+  isActive: boolean;
+}> = ({ data, isActive }) => {
+  const [selectedSport, setSelectedSport] = useState<string | null>(null);
 
-const BySportView: React.FC<{
-  data: MedalWinner[];
-}> = ({ data }) => {
-  if (data.length === 0) {
-    return <Text color="yellow">No medal winners data available yet.</Text>;
-  }
-  const grouped = new Map<string, MedalWinner[]>();
-  for (const w of data) {
-    const existing = grouped.get(w.sport);
-    if (existing) {
-      existing.push(w);
-    } else {
-      grouped.set(w.sport, [w]);
+  const grouped = useMemo(() => {
+    const map = new Map<string, MedalWinner[]>();
+    for (const w of data) {
+      const existing = map.get(w.sport);
+      if (existing) {
+        existing.push(w);
+      } else {
+        map.set(w.sport, [w]);
+      }
     }
+    return map;
+  }, [data]);
+
+  const categories = useMemo(() => Array.from(grouped.keys()), [grouped]);
+
+  if (data.length === 0) {
+    return <Text color="yellow">No medal winners data available yet.</Text>;
   }
 
-  const eW = 30;
-  const wW = 24;
+  if (selectedSport) {
+    const events = grouped.get(selectedSport) ?? [];
+    return (
+      <EventList
+        sport={selectedSport}
+        events={events}
+        isActive={isActive}
+        onBack={() => setSelectedSport(null)}
+      />
+    );
+  }
+
   return (
-    <Box flexDirection="column">
-      {Array.from(grouped.entries()).map(([sport, winners]) => (
-        <Box key={sport} flexDirection="column" marginBottom={1}>
-          <Text bold color="cyan">
-            ▸ {sport}
-          </Text>
-          {winners.map((row) => (
-            <Box key={`${sport}-${row.event}`} marginLeft={2}>
-              <Text>
-                {row.event.slice(0, eW - 2).padEnd(eW)}
-                <Text color="yellow">
-                  {row.gold.slice(0, wW - 2).padEnd(wW)}
-                </Text>
-                <Text color="white">
-                  {row.silver.slice(0, wW - 2).padEnd(wW)}
-                </Text>
-                <Text color="red">
-                  {row.bronze.slice(0, wW - 2).padEnd(wW)}
-                </Text>
-              </Text>
-            </Box>
-          ))}
-        </Box>
-      ))}
-    </Box>
+    <CategoryList
+      categories={categories}
+      isActive={isActive}
+      onSelect={setSelectedSport}
+    />
   );
 };
 
@@ -137,7 +105,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ scrapes }) => {
     activeTab === "medalTable" ? scrapes.medalTable : scrapes.medalWinners;
 
   return (
-    <Box flexDirection="column" padding={1} borderStyle="single">
+    <Box flexDirection="column" padding={1} borderStyle="single" flexGrow={1}>
       <Tabs onChange={handleTabChange}>
         <Tab name="medalTable">Medal Table</Tab>
         <Tab name="medalWinners">Medal Winners</Tab>
@@ -165,10 +133,11 @@ export const Dashboard: React.FC<DashboardProps> = ({ scrapes }) => {
             <Text color="red">Error: {activeScrape.error}</Text>
           ) : activeTab === "medalTable" ? (
             <MedalTableView data={scrapes.medalTable.data} />
-          ) : activeTab === "medalWinners" ? (
-            <MedalWinnersView data={scrapes.medalWinners.data} />
           ) : (
-            <BySportView data={scrapes.medalWinners.data} />
+            <SportEventsView
+              data={scrapes.medalWinners.data}
+              isActive={activeTab === "medalWinners" || activeTab === "bySport"}
+            />
           )}
         </Box>
       </Box>
