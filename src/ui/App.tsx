@@ -8,11 +8,12 @@ import {
   INITIAL_STORE,
   type MedalDeltas,
   type MedalTableEntry,
+  type ThemeVariant,
 } from "../types.js";
 import { CountdownTimer } from "./CountdownTimer.js";
 import { Dashboard } from "./Dashboard.js";
 import { Settings } from "./Settings.js";
-import { getTheme } from "./theme.js";
+import { getTheme, setThemeVariant } from "./theme.js";
 
 const useTerminalHeight = (): number => {
   const { stdout } = useStdout();
@@ -52,6 +53,7 @@ export const App = () => {
   // Load initial data
   useEffect(() => {
     const data = loadStore();
+    setThemeVariant(data.config.theme);
     setStore(data);
     previousMedalDataRef.current = data.scrapes.medalTable.data;
     setStatusMsg("Ready.");
@@ -194,11 +196,17 @@ export const App = () => {
     }
   });
 
-  const handleSettingsSave = (newInterval: number) => {
+  const handleSettingsSave = (newInterval: number, newTheme: ThemeVariant) => {
+    setThemeVariant(newTheme);
     setStore((prev) => ({
       ...prev,
-      config: { ...prev.config, intervalMinutes: newInterval },
+      config: { ...prev.config, intervalMinutes: newInterval, theme: newTheme },
     }));
+    setView("dashboard");
+  };
+
+  const handleSettingsBack = () => {
+    setThemeVariant(store.config.theme);
     setView("dashboard");
   };
 
@@ -238,8 +246,9 @@ export const App = () => {
       ) : (
         <Settings
           interval={store.config.intervalMinutes}
+          theme={store.config.theme}
           onSave={handleSettingsSave}
-          onBack={() => setView("dashboard")}
+          onBack={handleSettingsBack}
         />
       )}
 

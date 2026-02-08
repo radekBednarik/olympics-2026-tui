@@ -1,3 +1,5 @@
+export type ThemeVariant = "dark" | "storm" | "light";
+
 export type ScrapeStatus = "PENDING" | "NO_DATA" | "DATA_AVAILABLE" | "ERROR";
 
 export interface MedalTableEntry {
@@ -40,6 +42,7 @@ export interface ScrapeResult<T = unknown> {
 export interface AppStore {
   config: {
     intervalMinutes: number;
+    theme: ThemeVariant;
   };
   scrapes: {
     medalTable: ScrapeResult<MedalTableEntry>;
@@ -56,6 +59,7 @@ export const MEDAL_URLS = {
 export const INITIAL_STORE: AppStore = {
   config: {
     intervalMinutes: 30,
+    theme: "dark",
   },
   scrapes: {
     medalTable: {

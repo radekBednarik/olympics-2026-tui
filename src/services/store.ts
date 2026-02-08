@@ -12,7 +12,12 @@ export const loadStore = (): AppStore => {
       return INITIAL_STORE;
     }
     const data = fs.readFileSync(STORE_FILE, "utf-8");
-    return JSON.parse(data) as AppStore;
+    const parsed = JSON.parse(data) as AppStore;
+    // Graceful fallback for stores without a theme field
+    if (!parsed.config.theme) {
+      parsed.config.theme = INITIAL_STORE.config.theme;
+    }
+    return parsed;
   } catch (error) {
     console.error("Failed to load store, resetting to default", error);
     return INITIAL_STORE;

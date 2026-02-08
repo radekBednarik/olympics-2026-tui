@@ -1,4 +1,4 @@
-export type ThemeVariant = "dark" | "storm" | "light";
+import type { ThemeVariant } from "../types.js";
 
 export interface Theme {
   foreground: string;
@@ -26,11 +26,39 @@ const tokyoNightDark: Theme = {
   surfaceDark: "#16161e",
 };
 
+const tokyoNightStorm: Theme = {
+  foreground: "#c0caf5",
+  brightText: "#d5d6db",
+  muted: "#6272a4",
+  accent: "#bb9af7",
+  info: "#89ddff",
+  success: "#73daca",
+  warning: "#ff9e64",
+  error: "#f7768e",
+  surface: "#1f2335",
+  surfaceDark: "#1a1b2e",
+};
+
+const tokyoNightLight: Theme = {
+  foreground: "#343b58",
+  brightText: "#1a1b26",
+  muted: "#9699a3",
+  accent: "#34548a",
+  info: "#166775",
+  success: "#485e30",
+  warning: "#8f5e15",
+  error: "#8c4351",
+  surface: "#d5d6db",
+  surfaceDark: "#c4c5ca",
+};
+
 const themes: Record<ThemeVariant, Theme> = {
   dark: tokyoNightDark,
-  storm: tokyoNightDark, // placeholder for future variant
-  light: tokyoNightDark, // placeholder for future variant
+  storm: tokyoNightStorm,
+  light: tokyoNightLight,
 };
+
+export const THEME_VARIANTS: ThemeVariant[] = ["dark", "storm", "light"];
 
 let activeVariant: ThemeVariant = "dark";
 
