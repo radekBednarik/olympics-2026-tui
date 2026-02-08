@@ -167,7 +167,23 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </Tabs>
 
       <Box marginTop={1} flexDirection="column">
-        <Text bold>Status: {activeScrape.status}</Text>
+        <Text bold>
+          Status:{" "}
+          <Text
+            color={
+              activeScrape.status === "DATA_AVAILABLE"
+                ? theme.success
+                : activeScrape.status === "ERROR"
+                  ? theme.error
+                  : theme.warning
+            }
+          >
+            {activeScrape.status
+              .toLowerCase()
+              .replace(/_/g, " ")
+              .replace(/\b\w/g, (c) => c.toUpperCase())}
+          </Text>
+        </Text>
         <Text color={theme.muted}>
           Last Updated:{" "}
           {activeScrape.timestamp
@@ -181,7 +197,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
           borderColor={
             activeScrape.status === "DATA_AVAILABLE"
               ? theme.success
-              : theme.warning
+              : activeScrape.status === "ERROR"
+                ? theme.error
+                : theme.warning
           }
           padding={1}
         >
