@@ -2,6 +2,7 @@ import { Box, Text, useInput } from "ink";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import type { MedalWinner, WinnerDetail } from "../types.js";
+import { getTheme } from "./theme.js";
 
 interface EventListProps {
   sport: string;
@@ -19,9 +20,11 @@ const WinnerLine: React.FC<{ medal: string; detail: WinnerDetail }> = ({
   medal,
   detail,
 }) => {
+  const theme = getTheme();
+
   if (!detail.name) {
     return (
-      <Text color="gray">
+      <Text color={theme.muted}>
         {"  "}
         {medal} TBD
       </Text>
@@ -31,7 +34,9 @@ const WinnerLine: React.FC<{ medal: string; detail: WinnerDetail }> = ({
     <Text>
       {"  "}
       {medal} <Text bold>{detail.name}</Text>
-      {detail.country ? <Text color="gray"> ({detail.country})</Text> : null}
+      {detail.country ? (
+        <Text color={theme.muted}> ({detail.country})</Text>
+      ) : null}
     </Text>
   );
 };
@@ -45,6 +50,7 @@ export const EventList: React.FC<EventListProps> = ({
   const [cursor, setCursor] = useState(0);
   const [expanded, setExpanded] = useState<number | null>(null);
   const mountedRef = useRef(false);
+  const theme = getTheme();
 
   useEffect(() => {
     // Skip the first tick to avoid processing the Enter keypress that mounted this component
@@ -74,15 +80,16 @@ export const EventList: React.FC<EventListProps> = ({
   if (events.length === 0) {
     return (
       <Box flexDirection="column">
-        <Box borderStyle="single" borderColor="cyan" paddingX={1}>
+        <Box borderStyle="single" borderColor={theme.accent} paddingX={1}>
           <Text>
-            <Text color="gray">By Sport</Text> <Text color="gray">›</Text>{" "}
-            <Text bold color="cyan">
+            <Text color={theme.muted}>By Sport</Text>{" "}
+            <Text color={theme.muted}>›</Text>{" "}
+            <Text bold color={theme.accent}>
               {sport}
             </Text>
           </Text>
         </Box>
-        <Text color="yellow">No events available.</Text>
+        <Text color={theme.warning}>No events available.</Text>
       </Box>
     );
   }
@@ -91,13 +98,14 @@ export const EventList: React.FC<EventListProps> = ({
 
   return (
     <Box flexDirection="column">
-      <Box borderStyle="single" borderColor="cyan" paddingX={1}>
+      <Box borderStyle="single" borderColor={theme.accent} paddingX={1}>
         <Text>
-          <Text color="gray">By Sport</Text> <Text color="gray">›</Text>{" "}
-          <Text bold color="cyan">
+          <Text color={theme.muted}>By Sport</Text>{" "}
+          <Text color={theme.muted}>›</Text>{" "}
+          <Text bold color={theme.accent}>
             {sport}
           </Text>
-          <Text color="gray">
+          <Text color={theme.muted}>
             {" "}
             ({decidedCount}/{events.length} decided)
           </Text>
@@ -114,7 +122,7 @@ export const EventList: React.FC<EventListProps> = ({
               flexDirection="column"
             >
               {isSelected ? (
-                <Text color="cyan" bold>
+                <Text color={theme.accent} bold>
                   ▸ {hasData ? "🏅 " : ""}
                   {ev.event}
                 </Text>
@@ -123,7 +131,7 @@ export const EventList: React.FC<EventListProps> = ({
                   {"  "}🏅 {ev.event}
                 </Text>
               ) : (
-                <Text color="gray">
+                <Text color={theme.muted}>
                   {"  "}
                   {ev.event}
                 </Text>
@@ -140,7 +148,7 @@ export const EventList: React.FC<EventListProps> = ({
         })}
       </Box>
       <Box marginTop={1}>
-        <Text color="gray">
+        <Text color={theme.muted}>
           ↑/↓ Navigate · Enter Expand · Esc Back · 🏅 has results
         </Text>
       </Box>

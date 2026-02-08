@@ -1,5 +1,6 @@
 import { Text } from "ink";
 import { useEffect, useState } from "react";
+import { getTheme } from "./theme.js";
 
 interface CountdownTimerProps {
   lastScrapeTimestamp: string;
@@ -41,5 +42,7 @@ export const CountdownTimer = ({
     return () => clearInterval(id);
   }, [lastScrapeTimestamp, intervalMinutes]);
 
-  return <Text dimColor> | Next in: {remaining}</Text>;
+  const theme = getTheme();
+
+  return <Text color={theme.muted}> | Next in: {remaining}</Text>;
 };

@@ -2,6 +2,7 @@ import { Box, Text, useInput } from "ink";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import type { MedalWinner, WinnerDetail } from "../types.js";
+import { getTheme } from "./theme.js";
 
 interface MedalWinnersViewProps {
   data: MedalWinner[];
@@ -17,9 +18,11 @@ const WinnerLine: React.FC<{ medal: string; detail: WinnerDetail }> = ({
   medal,
   detail,
 }) => {
+  const theme = getTheme();
+
   if (!detail.name) {
     return (
-      <Text color="gray">
+      <Text color={theme.muted}>
         {"  "}
         {medal} TBD
       </Text>
@@ -29,7 +32,9 @@ const WinnerLine: React.FC<{ medal: string; detail: WinnerDetail }> = ({
     <Text>
       {"  "}
       {medal} <Text bold>{detail.name}</Text>
-      {detail.country ? <Text color="gray"> ({detail.country})</Text> : null}
+      {detail.country ? (
+        <Text color={theme.muted}> ({detail.country})</Text>
+      ) : null}
     </Text>
   );
 };
@@ -42,6 +47,7 @@ export const MedalWinnersView: React.FC<MedalWinnersViewProps> = ({
   const [cursor, setCursor] = useState(0);
   const [expanded, setExpanded] = useState<number | null>(null);
   const mountedRef = useRef(false);
+  const theme = getTheme();
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -65,12 +71,12 @@ export const MedalWinnersView: React.FC<MedalWinnersViewProps> = ({
   );
 
   if (decided.length === 0) {
-    return <Text color="yellow">No medal winners announced yet.</Text>;
+    return <Text color={theme.warning}>No medal winners announced yet.</Text>;
   }
 
   return (
     <Box flexDirection="column">
-      <Text color="green" bold>
+      <Text color={theme.success} bold>
         {decided.length} of {data.length} events decided
       </Text>
       <Box marginTop={1} flexDirection="column">
@@ -83,7 +89,7 @@ export const MedalWinnersView: React.FC<MedalWinnersViewProps> = ({
               flexDirection="column"
             >
               {isSelected ? (
-                <Text color="cyan" bold>
+                <Text color={theme.accent} bold>
                   ▸ {ev.sport} — {ev.event}
                 </Text>
               ) : (
@@ -104,7 +110,7 @@ export const MedalWinnersView: React.FC<MedalWinnersViewProps> = ({
         })}
       </Box>
       <Box marginTop={1}>
-        <Text color="gray">↑/↓ Navigate · Enter Expand</Text>
+        <Text color={theme.muted}>↑/↓ Navigate · Enter Expand</Text>
       </Box>
     </Box>
   );

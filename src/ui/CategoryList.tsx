@@ -1,6 +1,7 @@
 import { Box, Text, useInput } from "ink";
 import type React from "react";
 import { useState } from "react";
+import { getTheme } from "./theme.js";
 
 interface CategoryListProps {
   categories: string[];
@@ -33,13 +34,15 @@ export const CategoryList: React.FC<CategoryListProps> = ({
     { isActive }
   );
 
+  const theme = getTheme();
+
   if (categories.length === 0) {
-    return <Text color="yellow">No categories available.</Text>;
+    return <Text color={theme.warning}>No categories available.</Text>;
   }
 
   return (
     <Box flexDirection="column">
-      <Text color="green" bold>
+      <Text color={theme.success} bold>
         {highlightedCategories.size}/{categories.length} sports with results
       </Text>
       <Box marginTop={1} flexDirection="column">
@@ -48,18 +51,18 @@ export const CategoryList: React.FC<CategoryListProps> = ({
           return (
             <Box key={cat}>
               {i === cursor ? (
-                <Text color="cyan" bold>
+                <Text color={theme.accent} bold>
                   ▸ {hasData ? "● " : "  "}
                   {cat}
                 </Text>
               ) : hasData ? (
                 <Text>
                   {"  "}
-                  <Text color="green">● </Text>
+                  <Text color={theme.success}>● </Text>
                   {cat}
                 </Text>
               ) : (
-                <Text color="gray">
+                <Text color={theme.muted}>
                   {"    "}
                   {cat}
                 </Text>
@@ -69,8 +72,9 @@ export const CategoryList: React.FC<CategoryListProps> = ({
         })}
       </Box>
       <Box marginTop={1}>
-        <Text color="gray">
-          ↑/↓ Navigate · Enter Select · <Text color="green">●</Text> has results
+        <Text color={theme.muted}>
+          ↑/↓ Navigate · Enter Select · <Text color={theme.success}>●</Text> has
+          results
         </Text>
       </Box>
     </Box>

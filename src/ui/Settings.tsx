@@ -2,6 +2,7 @@ import { Box, Text } from "ink";
 import TextInput from "ink-text-input";
 import type React from "react";
 import { useState } from "react";
+import { getTheme } from "./theme.js";
 
 interface SettingsProps {
   interval: number;
@@ -15,6 +16,7 @@ export const Settings: React.FC<SettingsProps> = ({
   onBack,
 }) => {
   const [value, setValue] = useState(interval.toString());
+  const theme = getTheme();
 
   const handleSubmit = (val: string) => {
     const num = parseInt(val, 10);
@@ -35,7 +37,7 @@ export const Settings: React.FC<SettingsProps> = ({
         <TextInput value={value} onChange={setValue} onSubmit={handleSubmit} />
       </Box>
       <Box marginTop={1}>
-        <Text color="gray">Press Enter to save. Esc to cancel.</Text>
+        <Text color={theme.muted}>Press Enter to save. Esc to cancel.</Text>
       </Box>
     </Box>
   );

@@ -12,6 +12,7 @@ import {
 import { CountdownTimer } from "./CountdownTimer.js";
 import { Dashboard } from "./Dashboard.js";
 import { Settings } from "./Settings.js";
+import { getTheme } from "./theme.js";
 
 const useTerminalHeight = (): number => {
   const { stdout } = useStdout();
@@ -201,18 +202,20 @@ export const App = () => {
     setView("dashboard");
   };
 
+  const theme = getTheme();
+
   return (
     <Box flexDirection="column" height={rows}>
       <Box
         borderStyle="double"
-        borderColor="cyan"
+        borderColor={theme.accent}
         flexDirection="column"
         alignItems="center"
       >
         <Text bold>Olympics 2026 Medal Tracker</Text>
         <Box>
           {isScraping ? (
-            <Text color="green">
+            <Text color={theme.success}>
               <Spinner type="dots" /> Scraping...{" "}
             </Text>
           ) : (
@@ -240,7 +243,7 @@ export const App = () => {
         />
       )}
 
-      <Box marginTop={1} borderStyle="single" borderColor="gray">
+      <Box marginTop={1} borderStyle="single" borderColor={theme.muted}>
         <Text>Controls: [Q] Quit | [R] Refresh Now | [S] Settings</Text>
       </Box>
     </Box>

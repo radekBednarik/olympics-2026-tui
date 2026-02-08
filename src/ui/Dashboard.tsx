@@ -11,20 +11,23 @@ import type {
 import { CategoryList } from "./CategoryList.js";
 import { EventList } from "./EventList.js";
 import { MedalWinnersView } from "./MedalWinnersView.js";
+import { getTheme } from "./theme.js";
 
 interface DashboardProps {
   scrapes: AppStore["scrapes"];
   medalDeltas: Map<string, MedalDeltas>;
 }
 
-const STRIPE_BG = "#1a1a2e";
-
 const MedalTableView: React.FC<{
   data: MedalTableEntry[];
   medalDeltas: Map<string, MedalDeltas>;
 }> = ({ data, medalDeltas }) => {
+  const theme = getTheme();
+
   if (data.length === 0) {
-    return <Text color="yellow">No medal table data available yet.</Text>;
+    return (
+      <Text color={theme.warning}>No medal table data available yet.</Text>
+    );
   }
   const rW = 6;
   const cW = 20;
@@ -56,7 +59,9 @@ const MedalTableView: React.FC<{
       {data.map((row, index) => {
         const delta = medalDeltas.get(row.country);
         const stripeBg =
-          index % 2 === 1 ? { backgroundColor: STRIPE_BG as string } : {};
+          index % 2 === 1
+            ? { backgroundColor: theme.surfaceDark as string }
+            : {};
         const line =
           row.rank.padEnd(rW) +
           row.country.padEnd(cW) +
@@ -84,6 +89,7 @@ const SportEventsView: React.FC<{
   isActive: boolean;
 }> = ({ data, isActive }) => {
   const [selectedSport, setSelectedSport] = useState<string | null>(null);
+  const theme = getTheme();
 
   const grouped = useMemo(() => {
     const map = new Map<string, MedalWinner[]>();
@@ -111,7 +117,9 @@ const SportEventsView: React.FC<{
   }, [grouped]);
 
   if (data.length === 0) {
-    return <Text color="yellow">No medal winners data available yet.</Text>;
+    return (
+      <Text color={theme.warning}>No medal winners data available yet.</Text>
+    );
   }
 
   if (selectedSport) {
@@ -141,6 +149,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
   medalDeltas,
 }) => {
   const [activeTab, setActiveTab] = useState<string>("medalTable");
+  const theme = getTheme();
 
   const handleTabChange = (name: string) => {
     setActiveTab(name);
@@ -159,7 +168,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
       <Box marginTop={1} flexDirection="column">
         <Text bold>Status: {activeScrape.status}</Text>
-        <Text color="gray">
+        <Text color={theme.muted}>
           Last Updated:{" "}
           {activeScrape.timestamp
             ? new Date(activeScrape.timestamp).toLocaleString()
@@ -170,12 +179,14 @@ export const Dashboard: React.FC<DashboardProps> = ({
           marginTop={1}
           borderStyle="round"
           borderColor={
-            activeScrape.status === "DATA_AVAILABLE" ? "green" : "yellow"
+            activeScrape.status === "DATA_AVAILABLE"
+              ? theme.success
+              : theme.warning
           }
           padding={1}
         >
           {activeScrape.status === "ERROR" ? (
-            <Text color="red">Error: {activeScrape.error}</Text>
+            <Text color={theme.error}>Error: {activeScrape.error}</Text>
           ) : activeTab === "medalTable" ? (
             <MedalTableView
               data={scrapes.medalTable.data}
