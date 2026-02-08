@@ -5,25 +5,43 @@ import { useState } from "react";
 import type { ThemeVariant } from "../types.js";
 import { getTheme, setThemeVariant, THEME_VARIANTS } from "./theme.js";
 
+type ActiveField = "interval" | "theme" | "dataDir";
+const FIELD_ORDER: ActiveField[] = ["interval", "theme", "dataDir"];
+
 interface SettingsProps {
   interval: number;
   theme: ThemeVariant;
-  onSave: (newInterval: number, newTheme: ThemeVariant) => void;
+  dataDir: string;
+  dataDirError: string | undefined;
+  onSave: (
+    newInterval: number,
+    newTheme: ThemeVariant,
+    newDataDir: string
+  ) => void;
   onBack: () => void;
 }
 
 export const Settings: React.FC<SettingsProps> = ({
   interval,
   theme,
+  dataDir,
+  dataDirError,
   onSave,
   onBack,
 }) => {
   const [value, setValue] = useState(interval.toString());
   const [selectedTheme, setSelectedTheme] = useState<ThemeVariant>(theme);
-  const [activeField, setActiveField] = useState<"interval" | "theme">(
-    "interval"
-  );
+  const [dataDirValue, setDataDirValue] = useState(dataDir);
+  const [activeField, setActiveField] = useState<ActiveField>("interval");
   const currentTheme = getTheme();
+
+  const cycleField = (): void => {
+    setActiveField((prev) => {
+      const idx = FIELD_ORDER.indexOf(prev);
+      const next = FIELD_ORDER[(idx + 1) % FIELD_ORDER.length];
+      return next ?? "interval";
+    });
+  };
 
   const cycleTheme = (direction: number): void => {
     const currentIndex = THEME_VARIANTS.indexOf(selectedTheme);
@@ -39,7 +57,7 @@ export const Settings: React.FC<SettingsProps> = ({
 
   useInput((_input, key) => {
     if (key.tab) {
-      setActiveField((prev) => (prev === "interval" ? "theme" : "interval"));
+      cycleField();
     }
     if (activeField === "theme") {
       if (key.leftArrow) {
@@ -50,10 +68,10 @@ export const Settings: React.FC<SettingsProps> = ({
     }
   });
 
-  const handleSubmit = (val: string) => {
-    const num = Number.parseInt(val, 10);
+  const handleSubmit = () => {
+    const num = Number.parseInt(value, 10);
     if (!Number.isNaN(num) && num > 0) {
-      onSave(num, selectedTheme);
+      onSave(num, selectedTheme, dataDirValue);
     } else {
       onBack();
     }
@@ -100,6 +118,33 @@ export const Settings: React.FC<SettingsProps> = ({
           </Text>
         ))}
       </Box>
+
+      <Box marginTop={1}>
+        <Text
+          {...(activeField === "dataDir" ? { color: currentTheme.accent } : {})}
+          bold={activeField === "dataDir"}
+        >
+          {activeField === "dataDir" ? "▸ " : "  "}Data Directory:{" "}
+        </Text>
+        <TextInput
+          value={dataDirValue}
+          onChange={setDataDirValue}
+          onSubmit={handleSubmit}
+          focus={activeField === "dataDir"}
+        />
+      </Box>
+
+      {dataDirError ? (
+        <Box marginTop={1}>
+          <Text color={currentTheme.error}>⚠ {dataDirError}</Text>
+        </Box>
+      ) : (
+        <Box marginTop={1}>
+          <Text color={currentTheme.muted}>
+            Leave empty to use default location
+          </Text>
+        </Box>
+      )}
 
       <Box marginTop={1}>
         <Text color={currentTheme.muted}>

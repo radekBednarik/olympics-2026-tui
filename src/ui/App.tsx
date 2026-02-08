@@ -1,8 +1,23 @@
+import fs from "node:fs";
+import path from "node:path";
 import { Box, Text, useApp, useInput, useStdout } from "ink";
 import Spinner from "ink-spinner";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { getLegacyDataDir } from "../services/paths.js";
 import { scrapeMedalTable, scrapeMedalWinners } from "../services/scraper.js";
-import { loadStore, saveStore } from "../services/store.js";
+import {
+  type Settings as AppSettings,
+  getActiveDataDir,
+  loadSettings,
+  saveSettings,
+  settingsExist,
+} from "../services/settings.js";
+import {
+  loadStore,
+  migrateData,
+  saveStore,
+  validateDataDir,
+} from "../services/store.js";
 import {
   type AppStore,
   INITIAL_STORE,
@@ -43,6 +58,9 @@ export const App = () => {
     new Map()
   );
   const previousMedalDataRef = useRef<MedalTableEntry[]>([]);
+  const [appSettings, setAppSettings] = useState<AppSettings>({ dataDir: "" });
+  const [dataDir, setDataDir] = useState("");
+  const [dataDirError, setDataDirError] = useState<string | undefined>();
 
   // Use ref to track scraping state in callback without dependency
   const isScrapingRef = useRef(isScraping);
@@ -50,9 +68,36 @@ export const App = () => {
     isScrapingRef.current = isScraping;
   }, [isScraping]);
 
-  // Load initial data
+  // Ref for dataDir in stable callbacks
+  const dataDirRef = useRef(dataDir);
   useEffect(() => {
-    const data = loadStore();
+    dataDirRef.current = dataDir;
+  }, [dataDir]);
+
+  // Load initial data + handle legacy migration
+  useEffect(() => {
+    const settings = loadSettings();
+    setAppSettings(settings);
+
+    const activeDir = getActiveDataDir(settings);
+
+    // Legacy migration: if no settings.json exists and ./data/store.json does
+    if (!settingsExist()) {
+      const legacyDir = getLegacyDataDir();
+      const legacyStore = path.join(legacyDir, "store.json");
+      if (fs.existsSync(legacyStore)) {
+        const result = migrateData(legacyDir, activeDir);
+        if (!result.success) {
+          console.error("Legacy migration failed:", result.error);
+        }
+      }
+      // Save default settings so we don't re-migrate
+      saveSettings(settings);
+    }
+
+    setDataDir(activeDir);
+
+    const data = loadStore(activeDir);
     setThemeVariant(data.config.theme);
     setStore(data);
     previousMedalDataRef.current = data.scrapes.medalTable.data;
@@ -61,10 +106,10 @@ export const App = () => {
 
   // Save on change
   useEffect(() => {
-    if (store !== INITIAL_STORE) {
-      saveStore(store);
+    if (store !== INITIAL_STORE && dataDir) {
+      saveStore(store, dataDir);
     }
-  }, [store]);
+  }, [store, dataDir]);
 
   // Scrape Logic
   const performScrape = useCallback(async () => {
@@ -196,8 +241,48 @@ export const App = () => {
     }
   });
 
-  const handleSettingsSave = (newInterval: number, newTheme: ThemeVariant) => {
+  const handleSettingsSave = (
+    newInterval: number,
+    newTheme: ThemeVariant,
+    newDataDir: string
+  ) => {
+    setDataDirError(undefined);
     setThemeVariant(newTheme);
+
+    // Resolve dataDir: empty string means default
+    const resolvedNewDir =
+      newDataDir.trim() === ""
+        ? getActiveDataDir({ dataDir: "" })
+        : path.resolve(newDataDir.trim());
+
+    const currentDir = dataDirRef.current;
+    const dirChanged = resolvedNewDir !== currentDir;
+
+    if (dirChanged) {
+      // Validate new path
+      const validation = validateDataDir(resolvedNewDir);
+      if (!validation.isValid) {
+        setDataDirError(validation.error ?? "Invalid path");
+        return;
+      }
+
+      // Migrate data
+      const migration = migrateData(currentDir, resolvedNewDir);
+      if (!migration.success) {
+        setDataDirError(migration.error ?? "Migration failed");
+        return;
+      }
+
+      setDataDir(resolvedNewDir);
+    }
+
+    // Persist the new settings
+    const newSettings: AppSettings = {
+      dataDir: newDataDir.trim(),
+    };
+    setAppSettings(newSettings);
+    saveSettings(newSettings);
+
     setStore((prev) => ({
       ...prev,
       config: { ...prev.config, intervalMinutes: newInterval, theme: newTheme },
@@ -207,6 +292,7 @@ export const App = () => {
 
   const handleSettingsBack = () => {
     setThemeVariant(store.config.theme);
+    setDataDirError(undefined);
     setView("dashboard");
   };
 
@@ -247,6 +333,8 @@ export const App = () => {
         <Settings
           interval={store.config.intervalMinutes}
           theme={store.config.theme}
+          dataDir={appSettings.dataDir}
+          dataDirError={dataDirError}
           onSave={handleSettingsSave}
           onBack={handleSettingsBack}
         />

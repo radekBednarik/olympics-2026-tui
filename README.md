@@ -8,7 +8,7 @@ A terminal dashboard for tracking medals at the 2026 Winter Olympics in Milan-Co
 - **Medal Winners** — browse individual event winners across all sports
 - **By Sport** — drill into events grouped by sport category
 - **Auto-Refresh** — periodically scrapes for updated results on a configurable interval
-- **Persistent Storage** — scraped data is cached locally in `data/store.json`
+- **Persistent Storage** — scraped data is cached in an OS-standard user data directory with a configurable path
 
 ## Prerequisites
 
@@ -42,7 +42,38 @@ pnpm start
 | `↑` / `↓`   | Navigate lists   |
 | `<-` / `->` | Switch tabs      |
 
-In **Settings** you can change the auto-refresh interval (in minutes) and select a theme. Three Tokyo Night variants are available: **dark** (default), **storm**, and **light** — use `←`/`→` to cycle through them. Press `Enter` to save or `Esc` to cancel.
+In **Settings** you can change the auto-refresh interval (in minutes), select a theme, and set a custom data directory. Three Tokyo Night variants are available: **dark** (default), **storm**, and **light** — use `←`/`→` to cycle through them. Use `Tab` to switch between fields. Press `Enter` to save or `Esc` to cancel.
+
+## Data Storage
+
+The application stores two separate files:
+
+- **`settings.json`** — persists the custom data directory path (stored in the OS config directory, never moves)
+- **`store.json`** — cached scrape data and display preferences (stored in the data directory)
+
+### Default Locations
+
+| OS      | Settings (`settings.json`)                              | Data (`store.json`)                                  |
+| ------- | ------------------------------------------------------- | ---------------------------------------------------- |
+| Linux   | `~/.config/olympics-2026/`                              | `~/.local/share/olympics-2026/`                      |
+| macOS   | `~/Library/Application Support/olympics-2026/`          | `~/Library/Application Support/olympics-2026/`       |
+| Windows | `%APPDATA%\olympics-2026\`                              | `%LOCALAPPDATA%\olympics-2026\`                      |
+
+On Linux, `XDG_CONFIG_HOME` and `XDG_DATA_HOME` are respected when set.
+
+### Custom Data Directory
+
+You can change where `store.json` lives via the **Data Directory** field in Settings. When you change the path:
+
+1. The new path is validated (must be writable; parent directory must exist)
+2. Existing data is automatically migrated to the new location
+3. The new path is persisted in `settings.json`
+
+Leave the field empty to reset to the default location. If an invalid path is provided, an error is shown and the previous path is kept.
+
+### Legacy Migration
+
+On first run, if a `data/store.json` file exists in the working directory (from a previous version), it is automatically copied to the new default data directory.
 
 ## Development
 
