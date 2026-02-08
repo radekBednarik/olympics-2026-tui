@@ -2,18 +2,25 @@ import { Box, Text } from "ink";
 import { Tab, Tabs } from "ink-tab";
 import type React from "react";
 import { useMemo, useState } from "react";
-import type { AppStore, MedalTableEntry, MedalWinner } from "../types.js";
+import type {
+  AppStore,
+  MedalDeltas,
+  MedalTableEntry,
+  MedalWinner,
+} from "../types.js";
 import { CategoryList } from "./CategoryList.js";
 import { EventList } from "./EventList.js";
 import { MedalWinnersView } from "./MedalWinnersView.js";
 
 interface DashboardProps {
   scrapes: AppStore["scrapes"];
+  medalDeltas: Map<string, MedalDeltas>;
 }
 
 const MedalTableView: React.FC<{
   data: MedalTableEntry[];
-}> = ({ data }) => {
+  medalDeltas: Map<string, MedalDeltas>;
+}> = ({ data, medalDeltas }) => {
   if (data.length === 0) {
     return <Text color="yellow">No medal table data available yet.</Text>;
   }
@@ -33,18 +40,33 @@ const MedalTableView: React.FC<{
         </Text>
       </Box>
       <Text>{"─".repeat(rW + cW + mW * 4)}</Text>
-      {data.map((row) => (
-        <Box key={`${row.rank}-${row.country}`}>
-          <Text>
-            {row.rank.padEnd(rW)}
-            {row.country.padEnd(cW)}
-            {String(row.gold).padEnd(mW)}
-            {String(row.silver).padEnd(mW)}
-            {String(row.bronze).padEnd(mW)}
-            {String(row.total).padEnd(mW)}
-          </Text>
-        </Box>
-      ))}
+      {data.map((row) => {
+        const delta = medalDeltas.get(row.country);
+        return (
+          <Box key={`${row.rank}-${row.country}`}>
+            <Text>
+              {row.rank.padEnd(rW)}
+              {row.country.padEnd(cW)}
+              {String(row.gold).padEnd(mW)}
+            </Text>
+            {delta && delta.gold !== 0 ? (
+              <Text color="green">{`(+${delta.gold}) `.padEnd(mW)}</Text>
+            ) : null}
+            <Text>{String(row.silver).padEnd(mW)}</Text>
+            {delta && delta.silver !== 0 ? (
+              <Text color="green">{`(+${delta.silver}) `.padEnd(mW)}</Text>
+            ) : null}
+            <Text>{String(row.bronze).padEnd(mW)}</Text>
+            {delta && delta.bronze !== 0 ? (
+              <Text color="green">{`(+${delta.bronze}) `.padEnd(mW)}</Text>
+            ) : null}
+            <Text>{String(row.total).padEnd(mW)}</Text>
+            {delta && delta.total !== 0 ? (
+              <Text color="green">{`(+${delta.total})`}</Text>
+            ) : null}
+          </Box>
+        );
+      })}
     </Box>
   );
 };
@@ -111,7 +133,10 @@ const SportEventsView: React.FC<{
   );
 };
 
-export const Dashboard: React.FC<DashboardProps> = ({ scrapes }) => {
+export const Dashboard: React.FC<DashboardProps> = ({
+  scrapes,
+  medalDeltas,
+}) => {
   const [activeTab, setActiveTab] = useState<string>("medalTable");
 
   const handleTabChange = (name: string) => {
@@ -149,7 +174,10 @@ export const Dashboard: React.FC<DashboardProps> = ({ scrapes }) => {
           {activeScrape.status === "ERROR" ? (
             <Text color="red">Error: {activeScrape.error}</Text>
           ) : activeTab === "medalTable" ? (
-            <MedalTableView data={scrapes.medalTable.data} />
+            <MedalTableView
+              data={scrapes.medalTable.data}
+              medalDeltas={medalDeltas}
+            />
           ) : activeTab === "medalWinners" ? (
             <MedalWinnersView
               data={scrapes.medalWinners.data}

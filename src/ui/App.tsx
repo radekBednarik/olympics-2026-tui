@@ -3,7 +3,12 @@ import Spinner from "ink-spinner";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { scrapeMedalTable, scrapeMedalWinners } from "../services/scraper.js";
 import { loadStore, saveStore } from "../services/store.js";
-import { type AppStore, INITIAL_STORE } from "../types.js";
+import {
+  type AppStore,
+  INITIAL_STORE,
+  type MedalDeltas,
+  type MedalTableEntry,
+} from "../types.js";
 import { CountdownTimer } from "./CountdownTimer.js";
 import { Dashboard } from "./Dashboard.js";
 import { Settings } from "./Settings.js";
@@ -32,6 +37,10 @@ export const App = () => {
   const [view, setView] = useState<"dashboard" | "settings">("dashboard");
   const [isScraping, setIsScraping] = useState(false);
   const [statusMsg, setStatusMsg] = useState("Initializing...");
+  const [medalDeltas, setMedalDeltas] = useState<Map<string, MedalDeltas>>(
+    new Map()
+  );
+  const previousMedalDataRef = useRef<MedalTableEntry[]>([]);
 
   // Use ref to track scraping state in callback without dependency
   const isScrapingRef = useRef(isScraping);
@@ -43,6 +52,7 @@ export const App = () => {
   useEffect(() => {
     const data = loadStore();
     setStore(data);
+    previousMedalDataRef.current = data.scrapes.medalTable.data;
     setStatusMsg("Ready.");
   }, []);
 
@@ -64,6 +74,37 @@ export const App = () => {
         scrapeMedalTable(),
         scrapeMedalWinners(),
       ]);
+
+      // Compute medal deltas (skip on first scrape)
+      const prevData = previousMedalDataRef.current;
+      if (prevData.length > 0) {
+        const oldByCountry = new Map<string, MedalTableEntry>();
+        for (const entry of prevData) {
+          oldByCountry.set(entry.country, entry);
+        }
+        const deltas = new Map<string, MedalDeltas>();
+        for (const entry of medalTable.data) {
+          const old = oldByCountry.get(entry.country);
+          const d: MedalDeltas = {
+            gold: entry.gold - (old?.gold ?? 0),
+            silver: entry.silver - (old?.silver ?? 0),
+            bronze: entry.bronze - (old?.bronze ?? 0),
+            total: entry.total - (old?.total ?? 0),
+          };
+          if (
+            d.gold !== 0 ||
+            d.silver !== 0 ||
+            d.bronze !== 0 ||
+            d.total !== 0
+          ) {
+            deltas.set(entry.country, d);
+          }
+        }
+        setMedalDeltas(deltas);
+      } else {
+        setMedalDeltas(new Map());
+      }
+      previousMedalDataRef.current = medalTable.data;
 
       setStore((prevStore) => ({
         ...prevStore,
@@ -190,7 +231,7 @@ export const App = () => {
       </Box>
 
       {view === "dashboard" ? (
-        <Dashboard scrapes={store.scrapes} />
+        <Dashboard scrapes={store.scrapes} medalDeltas={medalDeltas} />
       ) : (
         <Settings
           interval={store.config.intervalMinutes}

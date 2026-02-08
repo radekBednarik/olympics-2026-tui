@@ -9,6 +9,13 @@ export interface MedalTableEntry {
   total: number;
 }
 
+export interface MedalDeltas {
+  gold: number;
+  silver: number;
+  bronze: number;
+  total: number;
+}
+
 export interface WinnerDetail {
   name: string;
   country: string;
