@@ -26,44 +26,64 @@ const MedalTableView: React.FC<{
   }
   const rW = 6;
   const cW = 20;
-  const mW = 7;
+  const mW = 12;
   return (
     <Box flexDirection="column">
       <Box>
-        <Text bold>
-          {"Rank".padEnd(rW)}
-          {"Country".padEnd(cW)}
-          {"🥇".padEnd(mW)}
-          {"🥈".padEnd(mW)}
-          {"🥉".padEnd(mW)}
-          {"Total".padEnd(mW)}
-        </Text>
+        <Box width={rW}>
+          <Text bold>Rank</Text>
+        </Box>
+        <Box width={cW}>
+          <Text bold>Country</Text>
+        </Box>
+        <Box width={mW}>
+          <Text bold>🥇</Text>
+        </Box>
+        <Box width={mW}>
+          <Text bold>🥈</Text>
+        </Box>
+        <Box width={mW}>
+          <Text bold>🥉</Text>
+        </Box>
+        <Box width={mW}>
+          <Text bold>Total</Text>
+        </Box>
       </Box>
       <Text>{"─".repeat(rW + cW + mW * 4)}</Text>
       {data.map((row) => {
         const delta = medalDeltas.get(row.country);
         return (
           <Box key={`${row.rank}-${row.country}`}>
-            <Text>
-              {row.rank.padEnd(rW)}
-              {row.country.padEnd(cW)}
-              {String(row.gold).padEnd(mW)}
-            </Text>
-            {delta && delta.gold !== 0 ? (
-              <Text color="green">{`(+${delta.gold}) `.padEnd(mW)}</Text>
-            ) : null}
-            <Text>{String(row.silver).padEnd(mW)}</Text>
-            {delta && delta.silver !== 0 ? (
-              <Text color="green">{`(+${delta.silver}) `.padEnd(mW)}</Text>
-            ) : null}
-            <Text>{String(row.bronze).padEnd(mW)}</Text>
-            {delta && delta.bronze !== 0 ? (
-              <Text color="green">{`(+${delta.bronze}) `.padEnd(mW)}</Text>
-            ) : null}
-            <Text>{String(row.total).padEnd(mW)}</Text>
-            {delta && delta.total !== 0 ? (
-              <Text color="green">{`(+${delta.total})`}</Text>
-            ) : null}
+            <Box width={rW}>
+              <Text>{row.rank}</Text>
+            </Box>
+            <Box width={cW}>
+              <Text>{row.country}</Text>
+            </Box>
+            <Box width={mW}>
+              <Text>{String(row.gold)}</Text>
+              {delta && delta.gold !== 0 ? (
+                <Text color="green">{` (+${delta.gold})`}</Text>
+              ) : null}
+            </Box>
+            <Box width={mW}>
+              <Text>{String(row.silver)}</Text>
+              {delta && delta.silver !== 0 ? (
+                <Text color="green">{` (+${delta.silver})`}</Text>
+              ) : null}
+            </Box>
+            <Box width={mW}>
+              <Text>{String(row.bronze)}</Text>
+              {delta && delta.bronze !== 0 ? (
+                <Text color="green">{` (+${delta.bronze})`}</Text>
+              ) : null}
+            </Box>
+            <Box width={mW}>
+              <Text>{String(row.total)}</Text>
+              {delta && delta.total !== 0 ? (
+                <Text color="green">{` (+${delta.total})`}</Text>
+              ) : null}
+            </Box>
           </Box>
         );
       })}
