@@ -8,12 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@playwright/cli':
-        specifier: ^0.0.65
-        version: 0.0.65
-      date-fns:
-        specifier: ^4.1.0
-        version: 4.1.0
       ink:
         specifier: ^5.2.1
         version: 5.2.1(@types/react@18.3.28)(react@18.3.1)
@@ -108,11 +102,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@playwright/cli@0.0.65':
-    resolution: {integrity: sha512-JzW0NDuuJAitbOVJCouZJEtrS8s3iZxKeu9OgoCkqemR0zmYGgWIglPib3VNcQFROc3fjhCuxgjLqlFtyUYnjA==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   '@types/node@25.2.1':
     resolution: {integrity: sha512-CPrnr8voK8vC6eEtyRzvMpgp3VyVRhgclonE7qYi6P9sXwYb59ucfrnmFBTaP0yUi8Gk4yZg/LlTJULGxvTNsg==}
 
@@ -168,9 +157,6 @@ packages:
 
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
-
-  date-fns@4.1.0:
-    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   emoji-regex@10.6.0:
     resolution: {integrity: sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A==}
@@ -261,9 +247,6 @@ packages:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}
     engines: {node: '>=6'}
 
-  minimist@1.2.8:
-    resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-
   onetime@5.1.2:
     resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
     engines: {node: '>=6'}
@@ -277,18 +260,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright-core@1.59.0-alpha-1770338664000:
-    resolution: {integrity: sha512-Qlaafyf5T1GN/ynNJVVdJyD26HjzqvgRC62jNdfaFoMkTvqSlV4of9O6BV7c1x5ZJpplKXHecAPWKSWNdea7Dw==}
-    engines: {node: '>=18'}
-    hasBin: true
-
   playwright@1.58.1:
     resolution: {integrity: sha512-+2uTZHxSCcxjvGc5C891LrS1/NlxglGxzrC4seZiVjcYVQfUa87wBL6rTDqzGjuoWNjnBzRqKmF6zRYGMvQUaQ==}
-    engines: {node: '>=18'}
-    hasBin: true
-
-  playwright@1.59.0-alpha-1770338664000:
-    resolution: {integrity: sha512-YKR5ko/eQFtcvlZPTJN3BmVFRrIxuzKw8sqZgP9XY+JvQEDlAsGDNsBd7/TxWLZYzCC8HHETB7cW6Ru2DEkTWA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -414,12 +387,6 @@ snapshots:
   '@biomejs/cli-win32-x64@2.3.14':
     optional: true
 
-  '@playwright/cli@0.0.65':
-    dependencies:
-      minimist: 1.2.8
-      playwright: 1.59.0-alpha-1770338664000
-      playwright-core: 1.59.0-alpha-1770338664000
-
   '@types/node@25.2.1':
     dependencies:
       undici-types: 7.16.0
@@ -463,8 +430,6 @@ snapshots:
   convert-to-spaces@2.0.1: {}
 
   csstype@3.2.3: {}
-
-  date-fns@4.1.0: {}
 
   emoji-regex@10.6.0: {}
 
@@ -550,8 +515,6 @@ snapshots:
 
   mimic-fn@2.1.0: {}
 
-  minimist@1.2.8: {}
-
   onetime@5.1.2:
     dependencies:
       mimic-fn: 2.1.0
@@ -560,17 +523,9 @@ snapshots:
 
   playwright-core@1.58.1: {}
 
-  playwright-core@1.59.0-alpha-1770338664000: {}
-
   playwright@1.58.1:
     dependencies:
       playwright-core: 1.58.1
-    optionalDependencies:
-      fsevents: 2.3.2
-
-  playwright@1.59.0-alpha-1770338664000:
-    dependencies:
-      playwright-core: 1.59.0-alpha-1770338664000
     optionalDependencies:
       fsevents: 2.3.2
 
