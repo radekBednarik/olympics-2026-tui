@@ -58,7 +58,7 @@ export const App = () => {
     new Map()
   );
   const previousMedalDataRef = useRef<MedalTableEntry[]>([]);
-  const [appSettings, setAppSettings] = useState<AppSettings>({ dataDir: "" });
+  const [_appSettings, setAppSettings] = useState<AppSettings>({ dataDir: "" });
   const [dataDir, setDataDir] = useState("");
   const [dataDirError, setDataDirError] = useState<string | undefined>();
 
@@ -276,9 +276,10 @@ export const App = () => {
       setDataDir(resolvedNewDir);
     }
 
-    // Persist the new settings
+    // Persist the new settings — save empty string if the path matches the default
+    const defaultDir = getActiveDataDir({ dataDir: "" });
     const newSettings: AppSettings = {
-      dataDir: newDataDir.trim(),
+      dataDir: resolvedNewDir === defaultDir ? "" : newDataDir.trim(),
     };
     setAppSettings(newSettings);
     saveSettings(newSettings);
@@ -333,15 +334,21 @@ export const App = () => {
         <Settings
           interval={store.config.intervalMinutes}
           theme={store.config.theme}
-          dataDir={appSettings.dataDir}
+          dataDir={dataDir}
           dataDirError={dataDirError}
           onSave={handleSettingsSave}
           onBack={handleSettingsBack}
         />
       )}
 
-      <Box marginTop={1} borderStyle="single" borderColor={theme.muted}>
+      <Box
+        marginTop={1}
+        borderStyle="single"
+        borderColor={theme.muted}
+        flexDirection="column"
+      >
         <Text>Controls: [Q] Quit | [R] Refresh Now | [S] Settings</Text>
+        <Text color={theme.muted}>📁 Data: {dataDir}</Text>
       </Box>
     </Box>
   );

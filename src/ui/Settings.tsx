@@ -141,7 +141,7 @@ export const Settings: React.FC<SettingsProps> = ({
       ) : (
         <Box marginTop={1}>
           <Text color={currentTheme.muted}>
-            Leave empty to use default location
+            Showing current storage path. Clear to reset to default.
           </Text>
         </Box>
       )}
