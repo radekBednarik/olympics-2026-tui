@@ -17,6 +17,8 @@ interface DashboardProps {
   medalDeltas: Map<string, MedalDeltas>;
 }
 
+const STRIPE_BG = "#1a1a2e";
+
 const MedalTableView: React.FC<{
   data: MedalTableEntry[];
   medalDeltas: Map<string, MedalDeltas>;
@@ -50,38 +52,40 @@ const MedalTableView: React.FC<{
         </Box>
       </Box>
       <Text>{"─".repeat(rW + cW + mW * 4)}</Text>
-      {data.map((row) => {
+      {data.map((row, index) => {
         const delta = medalDeltas.get(row.country);
+        const stripeBg =
+          index % 2 === 1 ? { backgroundColor: STRIPE_BG as string } : {};
         return (
           <Box key={`${row.rank}-${row.country}`}>
             <Box width={rW}>
-              <Text>{row.rank}</Text>
+              <Text {...stripeBg}>{row.rank}</Text>
             </Box>
             <Box width={cW}>
-              <Text>{row.country}</Text>
+              <Text {...stripeBg}>{row.country}</Text>
             </Box>
             <Box width={mW}>
-              <Text>{String(row.gold)}</Text>
+              <Text {...stripeBg}>{String(row.gold)}</Text>
               {delta && delta.gold !== 0 ? (
-                <Text color="green">{` (+${delta.gold})`}</Text>
+                <Text {...stripeBg} color="green">{` (+${delta.gold})`}</Text>
               ) : null}
             </Box>
             <Box width={mW}>
-              <Text>{String(row.silver)}</Text>
+              <Text {...stripeBg}>{String(row.silver)}</Text>
               {delta && delta.silver !== 0 ? (
-                <Text color="green">{` (+${delta.silver})`}</Text>
+                <Text {...stripeBg} color="green">{` (+${delta.silver})`}</Text>
               ) : null}
             </Box>
             <Box width={mW}>
-              <Text>{String(row.bronze)}</Text>
+              <Text {...stripeBg}>{String(row.bronze)}</Text>
               {delta && delta.bronze !== 0 ? (
-                <Text color="green">{` (+${delta.bronze})`}</Text>
+                <Text {...stripeBg} color="green">{` (+${delta.bronze})`}</Text>
               ) : null}
             </Box>
             <Box width={mW}>
-              <Text>{String(row.total)}</Text>
+              <Text {...stripeBg}>{String(row.total)}</Text>
               {delta && delta.total !== 0 ? (
-                <Text color="green">{` (+${delta.total})`}</Text>
+                <Text {...stripeBg} color="green">{` (+${delta.total})`}</Text>
               ) : null}
             </Box>
           </Box>
