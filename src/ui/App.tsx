@@ -81,6 +81,17 @@ export const App = () => {
     }
   }, []); // Stable callback
 
+  // Auto-scrape on startup when no data is available
+  // biome-ignore lint/correctness/useExhaustiveDependencies: intentionally runs only on mount
+  useEffect(() => {
+    if (
+      store.scrapes.medalTable.status === "PENDING" &&
+      store.scrapes.medalWinners.status === "PENDING"
+    ) {
+      performScrape();
+    }
+  }, []);
+
   // Interval Timer
   useEffect(() => {
     const ms = store.config.intervalMinutes * 60 * 1000;

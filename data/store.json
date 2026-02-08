@@ -4,22 +4,1938 @@
   },
   "scrapes": {
     "medalTable": {
-      "url": "https://www.olympics.com/en/milano-cortina-2026/medals",
-      "timestamp": "",
-      "status": "PENDING",
-      "content": ""
+      "url": "https://en.wikipedia.org/wiki/2026_Winter_Olympics_medal_table",
+      "timestamp": "2026-02-08T10:13:35.908Z",
+      "status": "DATA_AVAILABLE",
+      "data": [
+        {
+          "rank": "1",
+          "country": "Italy",
+          "gold": 1,
+          "silver": 1,
+          "bronze": 1,
+          "total": 3
+        },
+        {
+          "rank": "1",
+          "country": "Japan",
+          "gold": 1,
+          "silver": 1,
+          "bronze": 1,
+          "total": 3
+        },
+        {
+          "rank": "1",
+          "country": "Norway",
+          "gold": 1,
+          "silver": 1,
+          "bronze": 1,
+          "total": 3
+        },
+        {
+          "rank": "4",
+          "country": "Sweden",
+          "gold": 1,
+          "silver": 1,
+          "bronze": 0,
+          "total": 2
+        },
+        {
+          "rank": "5",
+          "country": "Switzerland",
+          "gold": 1,
+          "silver": 0,
+          "bronze": 0,
+          "total": 1
+        },
+        {
+          "rank": "6",
+          "country": "Slovenia",
+          "gold": 0,
+          "silver": 1,
+          "bronze": 0,
+          "total": 1
+        },
+        {
+          "rank": "7",
+          "country": "Canada",
+          "gold": 0,
+          "silver": 0,
+          "bronze": 1,
+          "total": 1
+        },
+        {
+          "rank": "7",
+          "country": "China",
+          "gold": 0,
+          "silver": 0,
+          "bronze": 1,
+          "total": 1
+        }
+      ]
     },
-    "medallists": {
-      "url": "https://www.olympics.com/en/milano-cortina-2026/medals/medallists",
-      "timestamp": "",
-      "status": "PENDING",
-      "content": ""
-    },
-    "bySport": {
-      "url": "https://www.olympics.com/en/milano-cortina-2026/medals/medals-by-sport",
-      "timestamp": "",
-      "status": "PENDING",
-      "content": ""
+    "medalWinners": {
+      "url": "https://en.wikipedia.org/wiki/List_of_2026_Winter_Olympics_medal_winners",
+      "timestamp": "2026-02-08T10:13:35.880Z",
+      "status": "DATA_AVAILABLE",
+      "data": [
+        {
+          "sport": "Alpine skiing",
+          "event": "Downhill",
+          "gold": {
+            "name": "Franjo von Allmen",
+            "country": "Switzerland"
+          },
+          "silver": {
+            "name": "Giovanni Franzoni",
+            "country": "Italy"
+          },
+          "bronze": {
+            "name": "Dominik Paris",
+            "country": "Italy"
+          }
+        },
+        {
+          "sport": "Alpine skiing",
+          "event": "Super-G",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Alpine skiing",
+          "event": "Giant slalom",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Alpine skiing",
+          "event": "Slalom",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Alpine skiing",
+          "event": "Team combined",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Alpine skiing",
+          "event": "Downhill",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Alpine skiing",
+          "event": "Super-G",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Alpine skiing",
+          "event": "Giant slalom",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Alpine skiing",
+          "event": "Slalom",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Alpine skiing",
+          "event": "Team combined",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Biathlon",
+          "event": "Individual",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Biathlon",
+          "event": "Sprint",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Biathlon",
+          "event": "Pursuit",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Biathlon",
+          "event": "Mass start",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Biathlon",
+          "event": "Relay",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Biathlon",
+          "event": "Individual",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Biathlon",
+          "event": "Sprint",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Biathlon",
+          "event": "Pursuit",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Biathlon",
+          "event": "Mass start",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Biathlon",
+          "event": "Relay",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Biathlon",
+          "event": "Relay",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Bobsleigh",
+          "event": "Two-man",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Bobsleigh",
+          "event": "Four-man",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Bobsleigh",
+          "event": "Women's monobob",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Bobsleigh",
+          "event": "Two-woman",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "10 kilometre freestyle",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "20 kilometre skiathlon",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "50 kilometre classical",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "4 × 7.5 kilometre relay",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "Sprint classical",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "Team sprint freestyle",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "10 kilometre freestyle",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "20 kilometre skiathlon",
+          "gold": {
+            "name": "Frida Karlsson",
+            "country": "Sweden"
+          },
+          "silver": {
+            "name": "Ebba Andersson",
+            "country": "Sweden"
+          },
+          "bronze": {
+            "name": "Heidi Weng",
+            "country": "Norway"
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "50 kilometre classical",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "4 × 7.5 kilometre relay",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "Sprint classical",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Cross-country skiing",
+          "event": "Team sprint freestyle",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Curling",
+          "event": "Men",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Curling",
+          "event": "Women",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Curling",
+          "event": "Mixed doubles",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Figure skating",
+          "event": "Men's singles",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Figure skating",
+          "event": "Women's singles",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Figure skating",
+          "event": "Pair skating",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Figure skating",
+          "event": "Ice dance",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Figure skating",
+          "event": "Team event",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Aerials",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Big air",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Halfpipe",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Slopestyle",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Moguls",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Dual moguls",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Ski cross",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Aerials",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Big air",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Halfpipe",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Slopestyle",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Moguls",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Dual moguls",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Ski cross",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Freestyle skiing",
+          "event": "Team aerials",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Ice hockey",
+          "event": "Men's tournament",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Ice hockey",
+          "event": "Women's tournament",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Luge",
+          "event": "Men's singles",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Luge",
+          "event": "Women's singles",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Luge",
+          "event": "Men's doubles",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Luge",
+          "event": "Women's doubles",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Luge",
+          "event": "Team relay",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Nordic combined",
+          "event": "Individual large hill/10 km",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Nordic combined",
+          "event": "Individual normal hill/10 km",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Nordic combined",
+          "event": "Team large hill/4 x 5 km",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Short track speed skating",
+          "event": "500 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Short track speed skating",
+          "event": "1000 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Short track speed skating",
+          "event": "1500 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Short track speed skating",
+          "event": "5000 metre relay",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Short track speed skating",
+          "event": "500 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Short track speed skating",
+          "event": "1000 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Short track speed skating",
+          "event": "1500 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Short track speed skating",
+          "event": "3000 metre relay",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Short track speed skating",
+          "event": "2000 metre relay",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Skeleton",
+          "event": "Men's",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Skeleton",
+          "event": "Women's",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Skeleton",
+          "event": "Mixed team",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Ski jumping",
+          "event": "Men's normal hill individual",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Ski jumping",
+          "event": "Men's large hill individual",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Ski jumping",
+          "event": "Men's large hill super team",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Ski jumping",
+          "event": "Women's normal hill individual",
+          "gold": {
+            "name": "Anna Odine Strøm",
+            "country": "Norway"
+          },
+          "silver": {
+            "name": "Nika Prevc",
+            "country": "Slovenia"
+          },
+          "bronze": {
+            "name": "Nozomi Maruyama",
+            "country": "Japan"
+          }
+        },
+        {
+          "sport": "Ski jumping",
+          "event": "Women's large hill individual",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Ski jumping",
+          "event": "Mixed normal hill team",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Ski mountaineering",
+          "event": "Men's sprint",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Ski mountaineering",
+          "event": "Women's sprint",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Ski mountaineering",
+          "event": "Mixed relay",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Snowboarding",
+          "event": "Big air",
+          "gold": {
+            "name": "Kira Kimura",
+            "country": "Japan"
+          },
+          "silver": {
+            "name": "Ryoma Kimata",
+            "country": "Japan"
+          },
+          "bronze": {
+            "name": "Su Yiming",
+            "country": "China"
+          }
+        },
+        {
+          "sport": "Snowboarding",
+          "event": "Halfpipe",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Snowboarding",
+          "event": "Slopestyle",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Snowboarding",
+          "event": "Parallel giant slalom",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Snowboarding",
+          "event": "Snowboard cross",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Snowboarding",
+          "event": "Big air",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Snowboarding",
+          "event": "Halfpipe",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Snowboarding",
+          "event": "Slopestyle",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Snowboarding",
+          "event": "Parallel giant slalom",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Snowboarding",
+          "event": "Snowboard cross",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Snowboarding",
+          "event": "Team snowboard cross",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "500 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "1000 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "1500 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "5000 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "10,000 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "Mass start",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "Team pursuit",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "500 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "1000 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "1500 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "3000 metres",
+          "gold": {
+            "name": "Francesca Lollobrigida",
+            "country": "Italy"
+          },
+          "silver": {
+            "name": "Ragne Wiklund",
+            "country": "Norway"
+          },
+          "bronze": {
+            "name": "Valérie Maltais",
+            "country": "Canada"
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "5000 metres",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "Mass start",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        },
+        {
+          "sport": "Speed skating",
+          "event": "Team pursuit",
+          "gold": {
+            "name": "",
+            "country": ""
+          },
+          "silver": {
+            "name": "",
+            "country": ""
+          },
+          "bronze": {
+            "name": "",
+            "country": ""
+          }
+        }
+      ]
     }
   }
 }
