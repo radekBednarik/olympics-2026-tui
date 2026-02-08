@@ -33,13 +33,14 @@ pnpm start
 
 ### Keybindings
 
-| Key       | Action           |
-| --------- | ---------------- |
-| `Q`       | Quit             |
-| `R`       | Refresh data now |
-| `S`       | Open settings    |
-| `Esc`     | Go back          |
-| `↑` / `↓` | Navigate lists   |
+| Key         | Action           |
+| ----------- | ---------------- |
+| `Q`         | Quit             |
+| `R`         | Refresh data now |
+| `S`         | Open settings    |
+| `Esc`       | Go back          |
+| `↑` / `↓`   | Navigate lists   |
+| `<-` / `->` | Switch tabs      |
 
 In **Settings** you can change the auto-refresh interval (in minutes). Press `Enter` to save or `Esc` to cancel.
 

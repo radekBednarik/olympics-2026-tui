@@ -1,6 +1,6 @@
 node_modules/
 .env
-dist/
-playwright/
-.playwright-cli/
-data/
+dist
+playwright
+.playwright-cli
+data
