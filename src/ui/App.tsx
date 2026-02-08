@@ -92,14 +92,45 @@ export const App = () => {
     }
   }, []);
 
-  // Interval Timer
+  // Interval Timer — on interval change, check if we're already overdue
   useEffect(() => {
     const ms = store.config.intervalMinutes * 60 * 1000;
-    const timer = setInterval(() => {
+    let intervalId: ReturnType<typeof setInterval> | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+    const startInterval = (): void => {
+      intervalId = setInterval(() => {
+        performScrape();
+      }, ms);
+    };
+
+    const lastTableTime = new Date(
+      store.scrapes.medalTable.timestamp
+    ).getTime();
+    const lastWinnersTime = new Date(
+      store.scrapes.medalWinners.timestamp
+    ).getTime();
+    const lastScrape = Math.max(
+      Number.isNaN(lastTableTime) ? 0 : lastTableTime,
+      Number.isNaN(lastWinnersTime) ? 0 : lastWinnersTime
+    );
+    const elapsed = lastScrape > 0 ? Date.now() - lastScrape : ms;
+
+    if (elapsed >= ms) {
       performScrape();
-    }, ms);
-    return () => clearInterval(timer);
-  }, [store.config.intervalMinutes, performScrape]);
+      startInterval();
+    } else {
+      timeoutId = setTimeout(() => {
+        performScrape();
+        startInterval();
+      }, ms - elapsed);
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [store.config.intervalMinutes, store.scrapes, performScrape]);
 
   // Key Bindings
   useInput((input, key) => {
