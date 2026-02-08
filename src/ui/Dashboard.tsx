@@ -29,66 +29,45 @@ const MedalTableView: React.FC<{
   const rW = 6;
   const cW = 20;
   const mW = 12;
+  const totalW = rW + cW + mW * 4;
+
+  const formatMedalCell = (
+    value: number,
+    delta: MedalDeltas | undefined,
+    field: keyof MedalDeltas,
+    width: number
+  ): string => {
+    const d = delta?.[field];
+    const text = d && d !== 0 ? `${value} (+${d})` : String(value);
+    return text.padEnd(width);
+  };
+
   return (
     <Box flexDirection="column">
-      <Box>
-        <Box width={rW}>
-          <Text bold>Rank</Text>
-        </Box>
-        <Box width={cW}>
-          <Text bold>Country</Text>
-        </Box>
-        <Box width={mW}>
-          <Text bold>🥇</Text>
-        </Box>
-        <Box width={mW}>
-          <Text bold>🥈</Text>
-        </Box>
-        <Box width={mW}>
-          <Text bold>🥉</Text>
-        </Box>
-        <Box width={mW}>
-          <Text bold>Total</Text>
-        </Box>
-      </Box>
-      <Text>{"─".repeat(rW + cW + mW * 4)}</Text>
+      <Text bold>
+        {"Rank".padEnd(rW)}
+        {"Country".padEnd(cW)}
+        {"🥇".padEnd(mW - 1)}
+        {"🥈".padEnd(mW - 1)}
+        {"🥉".padEnd(mW - 1)}
+        {"Total".padEnd(mW)}
+      </Text>
+      <Text>{"─".repeat(totalW)}</Text>
       {data.map((row, index) => {
         const delta = medalDeltas.get(row.country);
         const stripeBg =
           index % 2 === 1 ? { backgroundColor: STRIPE_BG as string } : {};
+        const line =
+          row.rank.padEnd(rW) +
+          row.country.padEnd(cW) +
+          formatMedalCell(row.gold, delta, "gold", mW) +
+          formatMedalCell(row.silver, delta, "silver", mW) +
+          formatMedalCell(row.bronze, delta, "bronze", mW) +
+          formatMedalCell(row.total, delta, "total", mW);
         return (
-          <Box key={`${row.rank}-${row.country}`}>
-            <Box width={rW}>
-              <Text {...stripeBg}>{row.rank}</Text>
-            </Box>
-            <Box width={cW}>
-              <Text {...stripeBg}>{row.country}</Text>
-            </Box>
-            <Box width={mW}>
-              <Text {...stripeBg}>{String(row.gold)}</Text>
-              {delta && delta.gold !== 0 ? (
-                <Text {...stripeBg} color="green">{` (+${delta.gold})`}</Text>
-              ) : null}
-            </Box>
-            <Box width={mW}>
-              <Text {...stripeBg}>{String(row.silver)}</Text>
-              {delta && delta.silver !== 0 ? (
-                <Text {...stripeBg} color="green">{` (+${delta.silver})`}</Text>
-              ) : null}
-            </Box>
-            <Box width={mW}>
-              <Text {...stripeBg}>{String(row.bronze)}</Text>
-              {delta && delta.bronze !== 0 ? (
-                <Text {...stripeBg} color="green">{` (+${delta.bronze})`}</Text>
-              ) : null}
-            </Box>
-            <Box width={mW}>
-              <Text {...stripeBg}>{String(row.total)}</Text>
-              {delta && delta.total !== 0 ? (
-                <Text {...stripeBg} color="green">{` (+${delta.total})`}</Text>
-              ) : null}
-            </Box>
-          </Box>
+          <Text key={`${row.rank}-${row.country}`} {...stripeBg}>
+            {line}
+          </Text>
         );
       })}
     </Box>
