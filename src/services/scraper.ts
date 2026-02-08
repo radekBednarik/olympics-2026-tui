@@ -1,62 +1,161 @@
 import { chromium } from "playwright";
-import type { ScrapeResult } from "../types.js";
+import type { MedalTableEntry, MedalWinner, ScrapeResult } from "../types.js";
+import { MEDAL_URLS } from "../types.js";
 
-export const scrapeUrl = async (url: string): Promise<ScrapeResult> => {
+export const scrapeMedalTable = async (): Promise<
+  ScrapeResult<MedalTableEntry>
+> => {
+  const url = MEDAL_URLS.medalTable;
   const browser = await chromium.launch();
   try {
-    const context = await browser.newContext({ ignoreHTTPSErrors: true });
-    const page = await context.newPage();
+    const page = await browser.newPage();
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
 
-    const title = await page.title();
+    const rows = await page.$$eval("table.wikitable.sortable tbody tr", (trs) =>
+      trs
+        .filter((tr) => !tr.classList.contains("sortbottom"))
+        .map((tr) => {
+          const cells = Array.from(tr.querySelectorAll("th, td"));
+          return cells.map((c) => c.textContent?.trim() ?? "");
+        })
+        .filter((cells) => cells.length >= 5)
+    );
 
-    // Heuristics for data detection
-    // 1. Look for tables
-    const tableCount = await page.locator("table").count();
+    // The table has: Rank | NOC (th) | Gold | Silver | Bronze | Total
+    // Some rows share a rank via rowspan, so rank cell may be missing
+    let lastRank = "";
+    const data: MedalTableEntry[] = [];
+    for (const cells of rows) {
+      // Skip the header row (contains "Rank", "NOC", etc.)
+      if (cells[0] === "Rank") continue;
 
-    // 2. Look for lists that are NOT navigation
-    // We assume the main nav is usually <nav> or specific classes, but here we just look at raw counts
-    const listItems = await page.locator("main li").count();
+      let rank: string;
+      let countryIdx: number;
+      // If first cell is numeric or empty (rowspan), determine layout
+      if (cells.length === 6) {
+        rank = cells[0] ?? "";
+        lastRank = rank;
+        countryIdx = 1;
+      } else {
+        // rowspan: rank cell is absent
+        rank = lastRank;
+        countryIdx = 0;
+      }
 
-    // 3. Get main text
-    const mainElement = page.locator("main");
-    const mainText =
-      (await mainElement.count()) > 0
-        ? await mainElement.innerText()
-        : await page.innerText("body");
+      const country = (cells[countryIdx] ?? "").replace(/\*$/, "").trim();
+      if (!country) continue;
 
-    let status: ScrapeResult["status"] = "NO_DATA";
-    let content =
-      "No detailed data available yet. The page seems to contain only placeholders.";
-
-    // Refine logic:
-    // If there is a table, we almost certainly have data.
-    // If there is a significant amount of text in main, we might have data.
-    // The current empty page has very little text in main (just headers and nav links).
-
-    if (tableCount > 0) {
-      status = "DATA_AVAILABLE";
-      // Attempt to extract table data as text
-      content = mainText;
-    } else if (mainText.length > 300 && listItems > 10) {
-      // Arbitrary thresholds: empty page usually has < 200 chars of text and < 5 list items in main
-      status = "DATA_AVAILABLE";
-      content = mainText;
+      data.push({
+        rank,
+        country,
+        gold: Number.parseInt(cells[countryIdx + 1] ?? "0", 10),
+        silver: Number.parseInt(cells[countryIdx + 2] ?? "0", 10),
+        bronze: Number.parseInt(cells[countryIdx + 3] ?? "0", 10),
+        total: Number.parseInt(cells[countryIdx + 4] ?? "0", 10),
+      });
     }
 
     return {
       url,
       timestamp: new Date().toISOString(),
-      status,
-      content,
-      title,
+      status: data.length > 0 ? "DATA_AVAILABLE" : "NO_DATA",
+      data,
     };
   } catch (error) {
     return {
       url,
       timestamp: new Date().toISOString(),
       status: "ERROR",
-      content: error instanceof Error ? error.message : String(error),
+      data: [],
+      error: error instanceof Error ? error.message : String(error),
+    };
+  } finally {
+    await browser.close();
+  }
+};
+
+export const scrapeMedalWinners = async (): Promise<
+  ScrapeResult<MedalWinner>
+> => {
+  const url = MEDAL_URLS.medalWinners;
+  const browser = await chromium.launch();
+  try {
+    const page = await browser.newPage();
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
+
+    // Extract sport sections: each sport is an h2 with a wikitable below it
+    const data = await page.evaluate(() => {
+      const results: {
+        sport: string;
+        event: string;
+        gold: string;
+        silver: string;
+        bronze: string;
+      }[] = [];
+      const content = document.querySelector(
+        "#mw-content-text .mw-parser-output"
+      );
+      if (!content) return results;
+
+      let currentSport = "";
+      for (const el of Array.from(content.children)) {
+        // Detect sport headings (h2 elements with an id)
+        if (el.tagName === "DIV" && el.querySelector("h2")) {
+          const heading = el.querySelector("h2");
+          const span = heading?.querySelector(".mw-headline") ?? heading;
+          currentSport = span?.textContent?.trim() ?? "";
+          // Skip non-sport sections
+          if (
+            ["See also", "References", "Notes", "Changes in medals"].includes(
+              currentSport
+            )
+          ) {
+            currentSport = "";
+          }
+          continue;
+        }
+
+        // Process tables under a sport heading
+        if (
+          currentSport &&
+          el.tagName === "TABLE" &&
+          el.classList.contains("wikitable")
+        ) {
+          const rows = el.querySelectorAll("tbody tr");
+          for (const row of Array.from(rows)) {
+            const cells = Array.from(row.querySelectorAll("th, td"));
+            const texts = cells.map((c) => c.textContent?.trim() ?? "");
+            // Typical layout: Event | Gold | Silver | Bronze
+            // Skip header rows and rows with too few cells
+            if (texts.length < 4) continue;
+            if (texts[0] === "Event" || texts[0] === "Games") continue;
+
+            results.push({
+              sport: currentSport,
+              event: texts[0] ?? "",
+              gold: texts[1] ?? "",
+              silver: texts[2] ?? "",
+              bronze: texts[3] ?? "",
+            });
+          }
+        }
+      }
+      return results;
+    });
+
+    return {
+      url,
+      timestamp: new Date().toISOString(),
+      status: data.length > 0 ? "DATA_AVAILABLE" : "NO_DATA",
+      data,
+    };
+  } catch (error) {
+    return {
+      url,
+      timestamp: new Date().toISOString(),
+      status: "ERROR",
+      data: [],
+      error: error instanceof Error ? error.message : String(error),
     };
   } finally {
     await browser.close();

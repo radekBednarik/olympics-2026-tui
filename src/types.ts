@@ -1,11 +1,28 @@
 export type ScrapeStatus = "PENDING" | "NO_DATA" | "DATA_AVAILABLE" | "ERROR";
 
-export interface ScrapeResult {
+export interface MedalTableEntry {
+  rank: string;
+  country: string;
+  gold: number;
+  silver: number;
+  bronze: number;
+  total: number;
+}
+
+export interface MedalWinner {
+  sport: string;
+  event: string;
+  gold: string;
+  silver: string;
+  bronze: string;
+}
+
+export interface ScrapeResult<T = unknown> {
   url: string;
-  timestamp: string; // ISO date
+  timestamp: string;
   status: ScrapeStatus;
-  content: string; // Text summary or JSON string of table data
-  title?: string;
+  data: T[];
+  error?: string;
 }
 
 export interface AppStore {
@@ -13,18 +30,15 @@ export interface AppStore {
     intervalMinutes: number;
   };
   scrapes: {
-    medalTable: ScrapeResult;
-    medallists: ScrapeResult;
-    bySport: ScrapeResult;
+    medalTable: ScrapeResult<MedalTableEntry>;
+    medalWinners: ScrapeResult<MedalWinner>;
   };
 }
 
 export const MEDAL_URLS = {
-  medalTable: "https://www.olympics.com/en/milano-cortina-2026/medals",
-  medallists:
-    "https://www.olympics.com/en/milano-cortina-2026/medals/medallists",
-  bySport:
-    "https://www.olympics.com/en/milano-cortina-2026/medals/medals-by-sport",
+  medalTable: "https://en.wikipedia.org/wiki/2026_Winter_Olympics_medal_table",
+  medalWinners:
+    "https://en.wikipedia.org/wiki/List_of_2026_Winter_Olympics_medal_winners",
 };
 
 export const INITIAL_STORE: AppStore = {
@@ -36,19 +50,13 @@ export const INITIAL_STORE: AppStore = {
       url: MEDAL_URLS.medalTable,
       timestamp: "",
       status: "PENDING",
-      content: "",
+      data: [],
     },
-    medallists: {
-      url: MEDAL_URLS.medallists,
+    medalWinners: {
+      url: MEDAL_URLS.medalWinners,
       timestamp: "",
       status: "PENDING",
-      content: "",
-    },
-    bySport: {
-      url: MEDAL_URLS.bySport,
-      timestamp: "",
-      status: "PENDING",
-      content: "",
+      data: [],
     },
   },
 };

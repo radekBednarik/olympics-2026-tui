@@ -1,9 +1,9 @@
 import { Box, Text, useApp, useInput } from "ink";
 import Spinner from "ink-spinner";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { scrapeUrl } from "../services/scraper.js";
+import { scrapeMedalTable, scrapeMedalWinners } from "../services/scraper.js";
 import { loadStore, saveStore } from "../services/store.js";
-import { type AppStore, INITIAL_STORE, MEDAL_URLS } from "../types.js";
+import { type AppStore, INITIAL_STORE } from "../types.js";
 import { Dashboard } from "./Dashboard.js";
 import { Settings } from "./Settings.js";
 
@@ -41,18 +41,16 @@ export const App = () => {
     setStatusMsg("Scraping data...");
 
     try {
-      const [medalTable, medallists, bySport] = await Promise.all([
-        scrapeUrl(MEDAL_URLS.medalTable),
-        scrapeUrl(MEDAL_URLS.medallists),
-        scrapeUrl(MEDAL_URLS.bySport),
+      const [medalTable, medalWinners] = await Promise.all([
+        scrapeMedalTable(),
+        scrapeMedalWinners(),
       ]);
 
       setStore((prevStore) => ({
         ...prevStore,
         scrapes: {
           medalTable,
-          medallists,
-          bySport,
+          medalWinners,
         },
       }));
 
