@@ -42,7 +42,7 @@ pnpm start
 | `↑` / `↓`   | Navigate lists   |
 | `<-` / `->` | Switch tabs      |
 
-In **Settings** you can change the auto-refresh interval (in minutes). Press `Enter` to save or `Esc` to cancel.
+In **Settings** you can change the auto-refresh interval (in minutes) and select a theme. Three Tokyo Night variants are available: **dark** (default), **storm**, and **light** — use `←`/`→` to cycle through them. Press `Enter` to save or `Esc` to cancel.
 
 ## Development
 
