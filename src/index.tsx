@@ -1,5 +1,6 @@
 import { render } from "ink";
 import { App } from "./ui/App.js";
+import { enableSyncOutput } from "./ui/sync-output.js";
 
 const enterAltScreen = "\x1b[?1049h";
 const exitAltScreen = "\x1b[?1049l";
@@ -13,7 +14,15 @@ const restoreTerminal = (): void => {
 // Enter alternate screen buffer and hide cursor
 process.stdout.write(enterAltScreen + hideCursor);
 
-const instance = render(<App />, { exitOnCtrlC: true });
+// Wrap stdout writes in synchronized update markers to prevent
+// flickering on terminals like Windows Terminal
+enableSyncOutput();
+
+const instance = render(<App />, {
+  exitOnCtrlC: true,
+  stderr: process.stdout,
+  patchConsole: false,
+});
 
 const handleSignal = (): void => {
   instance.unmount();

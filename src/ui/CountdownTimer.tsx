@@ -30,11 +30,12 @@ export const CountdownTimer = ({
     const update = (): void => {
       const lastTime = new Date(lastScrapeTimestamp).getTime();
       if (Number.isNaN(lastTime) || lastScrapeTimestamp === "") {
-        setRemaining("—");
+        setRemaining((prev) => (prev === "—" ? prev : "—"));
         return;
       }
       const diff = lastTime + ms - Date.now();
-      setRemaining(formatRemaining(Math.max(0, Math.floor(diff / 1000))));
+      const next = formatRemaining(Math.max(0, Math.floor(diff / 1000)));
+      setRemaining((prev) => (prev === next ? prev : next));
     };
 
     update();
