@@ -9,6 +9,15 @@ interface MedalWinnersViewProps {
   isActive: boolean;
 }
 
+const GENDER_LABEL: Record<string, string> = {
+  men: " ♂",
+  women: " ♀",
+  mixed: " ⚥",
+};
+
+const genderSuffix = (gender: string | undefined): string =>
+  (gender && GENDER_LABEL[gender]) ?? "";
+
 const hasWinnerData = (winner: MedalWinner): boolean =>
   winner.gold.name !== "" ||
   winner.silver.name !== "" ||
@@ -91,11 +100,13 @@ export const MedalWinnersView: React.FC<MedalWinnersViewProps> = ({
               {isSelected ? (
                 <Text color={theme.accent} bold>
                   ▸ {ev.sport} — {ev.event}
+                  {genderSuffix(ev.gender)}
                 </Text>
               ) : (
                 <Text>
                   {"  "}
                   {ev.sport} — {ev.event}
+                  {genderSuffix(ev.gender)}
                 </Text>
               )}
               {isExpanded ? (

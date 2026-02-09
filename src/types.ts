@@ -23,9 +23,12 @@ export interface WinnerDetail {
   country: string;
 }
 
+export type EventGender = "men" | "women" | "mixed" | "";
+
 export interface MedalWinner {
   sport: string;
   event: string;
+  gender: EventGender;
   gold: WinnerDetail;
   silver: WinnerDetail;
   bronze: WinnerDetail;

@@ -11,6 +11,15 @@ interface EventListProps {
   onBack: () => void;
 }
 
+const GENDER_LABEL: Record<string, string> = {
+  men: " ♂",
+  women: " ♀",
+  mixed: " ⚥",
+};
+
+const genderSuffix = (gender: string | undefined): string =>
+  (gender && GENDER_LABEL[gender]) ?? "";
+
 const hasWinnerData = (winner: MedalWinner): boolean =>
   winner.gold.name !== "" ||
   winner.silver.name !== "" ||
@@ -125,15 +134,18 @@ export const EventList: React.FC<EventListProps> = ({
                 <Text color={theme.accent} bold>
                   ▸ {hasData ? "🏅 " : ""}
                   {ev.event}
+                  {genderSuffix(ev.gender)}
                 </Text>
               ) : hasData ? (
                 <Text>
                   {"  "}🏅 {ev.event}
+                  {genderSuffix(ev.gender)}
                 </Text>
               ) : (
                 <Text color={theme.muted}>
                   {"  "}
                   {ev.event}
+                  {genderSuffix(ev.gender)}
                 </Text>
               )}
               {isExpanded ? (

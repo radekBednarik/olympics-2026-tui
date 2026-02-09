@@ -99,6 +99,7 @@ export const scrapeMedalWinners = async (): Promise<
       const results: {
         sport: string;
         event: string;
+        gender: "men" | "women" | "mixed" | "";
         gold: { name: string; country: string };
         silver: { name: string; country: string };
         bronze: { name: string; country: string };
@@ -108,13 +109,23 @@ export const scrapeMedalWinners = async (): Promise<
       );
       if (!content) return results;
 
+      const parseGender = (text: string): "men" | "women" | "mixed" | "" => {
+        const lower = text.toLowerCase();
+        if (lower.startsWith("men")) return "men";
+        if (lower.startsWith("women")) return "women";
+        if (lower.startsWith("mixed")) return "mixed";
+        return "";
+      };
+
       let currentSport = "";
+      let currentGender: "men" | "women" | "mixed" | "" = "";
       for (const el of Array.from(content.children)) {
         // Detect sport headings (h2 elements with an id)
         if (el.tagName === "DIV" && el.querySelector("h2")) {
           const heading = el.querySelector("h2");
           const span = heading?.querySelector(".mw-headline") ?? heading;
           currentSport = span?.textContent?.trim() ?? "";
+          currentGender = "";
           // Skip non-sport sections
           if (
             ["See also", "References", "Notes", "Changes in medals"].includes(
@@ -123,6 +134,15 @@ export const scrapeMedalWinners = async (): Promise<
           ) {
             currentSport = "";
           }
+          continue;
+        }
+
+        // Detect gender sub-headings (h3 elements)
+        if (currentSport && el.tagName === "DIV" && el.querySelector("h3")) {
+          const heading = el.querySelector("h3");
+          const span = heading?.querySelector(".mw-headline") ?? heading;
+          const text = span?.textContent?.trim() ?? "";
+          currentGender = parseGender(text);
           continue;
         }
 
@@ -144,6 +164,7 @@ export const scrapeMedalWinners = async (): Promise<
             results.push({
               sport: currentSport,
               event: eventName,
+              gender: currentGender,
               gold: parseWinner(texts[1] ?? ""),
               silver: parseWinner(texts[2] ?? ""),
               bronze: parseWinner(texts[3] ?? ""),
