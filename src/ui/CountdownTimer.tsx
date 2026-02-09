@@ -10,12 +10,12 @@ interface CountdownTimerProps {
 const formatRemaining = (totalSeconds: number): string => {
   if (totalSeconds <= 0) return "now";
 
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
+  const totalMinutes = Math.ceil(totalSeconds / 60);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
 
   if (hours > 0) return `${hours}h ${minutes}m`;
-  return `${minutes}m ${seconds}s`;
+  return `${minutes}m`;
 };
 
 export const CountdownTimer = ({
@@ -38,7 +38,7 @@ export const CountdownTimer = ({
     };
 
     update();
-    const id = setInterval(update, 1000);
+    const id = setInterval(update, 60_000);
     return () => clearInterval(id);
   }, [lastScrapeTimestamp, intervalMinutes]);
 
