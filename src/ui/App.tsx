@@ -28,7 +28,7 @@ import {
 import { CountdownTimer } from "./CountdownTimer.js";
 import { Dashboard } from "./Dashboard.js";
 import { Settings } from "./Settings.js";
-import { getTheme, setThemeVariant } from "./theme.js";
+import { getTheme, setTerminalBackground, setThemeVariant } from "./theme.js";
 
 const useTerminalHeight = (): number => {
   const { stdout } = useStdout();
@@ -99,6 +99,7 @@ export const App = () => {
 
     const data = loadStore(activeDir);
     setThemeVariant(data.config.theme);
+    setTerminalBackground(getTheme().background);
     setStore(data);
     previousMedalDataRef.current = data.scrapes.medalTable.data;
     setStatusMsg("Ready.");
@@ -248,6 +249,7 @@ export const App = () => {
   ) => {
     setDataDirError(undefined);
     setThemeVariant(newTheme);
+    setTerminalBackground(getTheme().background);
 
     // Resolve dataDir: empty string means default
     const resolvedNewDir =
@@ -293,6 +295,7 @@ export const App = () => {
 
   const handleSettingsBack = () => {
     setThemeVariant(store.config.theme);
+    setTerminalBackground(getTheme().background);
     setDataDirError(undefined);
     setView("dashboard");
   };

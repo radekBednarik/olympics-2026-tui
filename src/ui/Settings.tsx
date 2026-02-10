@@ -3,7 +3,12 @@ import TextInput from "ink-text-input";
 import type React from "react";
 import { useState } from "react";
 import type { ThemeVariant } from "../types.js";
-import { getTheme, setThemeVariant, THEME_VARIANTS } from "./theme.js";
+import {
+  getTheme,
+  setTerminalBackground,
+  setThemeVariant,
+  THEME_VARIANTS,
+} from "./theme.js";
 
 type ActiveField = "interval" | "theme" | "dataDir";
 const FIELD_ORDER: ActiveField[] = ["interval", "theme", "dataDir"];
@@ -52,6 +57,7 @@ export const Settings: React.FC<SettingsProps> = ({
     if (next) {
       setSelectedTheme(next);
       setThemeVariant(next);
+      setTerminalBackground(getTheme().background);
     }
   };
 
