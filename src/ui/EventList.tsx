@@ -25,28 +25,78 @@ const hasWinnerData = (winner: MedalWinner): boolean =>
   winner.silver.name !== "" ||
   winner.bronze.name !== "";
 
-const WinnerLine: React.FC<{ medal: string; detail: WinnerDetail }> = ({
-  medal,
-  detail,
-}) => {
-  const theme = getTheme();
+const formatWinner = (detail: WinnerDetail): string => {
+  if (!detail.name) return "TBD";
+  return detail.country ? `${detail.name} (${detail.country})` : detail.name;
+};
 
-  if (!detail.name) {
-    return (
-      <Text color={theme.muted}>
-        {"  "}
-        {medal} TBD
-      </Text>
-    );
-  }
+const EventDetail: React.FC<{
+  sport: string;
+  event: MedalWinner;
+  isActive: boolean;
+  onBack: () => void;
+}> = ({ sport, event, isActive, onBack }) => {
+  const theme = getTheme();
+  const mountedRef = useRef(false);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      mountedRef.current = true;
+    }, 50);
+    return () => clearTimeout(id);
+  }, []);
+
+  useInput(
+    (_input, key) => {
+      if (!mountedRef.current) return;
+      if (key.escape || key.backspace || key.delete) {
+        onBack();
+      }
+    },
+    { isActive }
+  );
+
   return (
-    <Text>
-      {"  "}
-      {medal} <Text bold>{detail.name}</Text>
-      {detail.country ? (
-        <Text color={theme.muted}> ({detail.country})</Text>
-      ) : null}
-    </Text>
+    <Box flexDirection="column">
+      <Box borderStyle="single" borderColor={theme.accent} paddingX={1}>
+        <Text>
+          <Text color={theme.muted}>By Sport</Text>{" "}
+          <Text color={theme.muted}>{">"}</Text>{" "}
+          <Text color={theme.muted}>{sport}</Text>{" "}
+          <Text color={theme.muted}>{">"}</Text>{" "}
+          <Text bold color={theme.accent}>
+            {event.event}
+            {genderSuffix(event.gender)}
+          </Text>
+        </Text>
+      </Box>
+      <Box marginTop={1} flexDirection="column" marginLeft={2}>
+        <Text>
+          {"  "}
+          <Text bold color={theme.accent}>
+            Gold:
+          </Text>{" "}
+          <Text bold>{formatWinner(event.gold)}</Text>
+        </Text>
+        <Text>
+          {"  "}
+          <Text bold color={theme.accent}>
+            Silver:
+          </Text>{" "}
+          <Text>{formatWinner(event.silver)}</Text>
+        </Text>
+        <Text>
+          {"  "}
+          <Text bold color={theme.accent}>
+            Bronze:
+          </Text>{" "}
+          <Text>{formatWinner(event.bronze)}</Text>
+        </Text>
+      </Box>
+      <Box marginTop={1}>
+        <Text color={theme.muted}>Esc Back</Text>
+      </Box>
+    </Box>
   );
 };
 
@@ -57,7 +107,7 @@ export const EventList: React.FC<EventListProps> = ({
   onBack,
 }) => {
   const [cursor, setCursor] = useState(0);
-  const [expanded, setExpanded] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const mountedRef = useRef(false);
   const theme = getTheme();
 
@@ -71,13 +121,14 @@ export const EventList: React.FC<EventListProps> = ({
 
   useInput(
     (_input, key) => {
+      if (selectedIndex !== null) return;
       if (key.upArrow) {
         setCursor((prev) => Math.max(0, prev - 1));
       } else if (key.downArrow) {
         setCursor((prev) => Math.min(events.length - 1, prev + 1));
       } else if (key.return) {
         if (!mountedRef.current) return;
-        setExpanded((prev) => (prev === cursor ? null : cursor));
+        setSelectedIndex(cursor);
       } else if (key.escape || key.backspace || key.delete) {
         if (!mountedRef.current) return;
         onBack();
@@ -92,7 +143,7 @@ export const EventList: React.FC<EventListProps> = ({
         <Box borderStyle="single" borderColor={theme.accent} paddingX={1}>
           <Text>
             <Text color={theme.muted}>By Sport</Text>{" "}
-            <Text color={theme.muted}>›</Text>{" "}
+            <Text color={theme.muted}>{">"}</Text>{" "}
             <Text bold color={theme.accent}>
               {sport}
             </Text>
@@ -105,12 +156,26 @@ export const EventList: React.FC<EventListProps> = ({
 
   const decidedCount = events.filter(hasWinnerData).length;
 
+  const selectedEvent =
+    selectedIndex !== null ? events[selectedIndex] : undefined;
+
+  if (selectedEvent) {
+    return (
+      <EventDetail
+        sport={sport}
+        event={selectedEvent}
+        isActive={isActive}
+        onBack={() => setSelectedIndex(null)}
+      />
+    );
+  }
+
   return (
     <Box flexDirection="column">
       <Box borderStyle="single" borderColor={theme.accent} paddingX={1}>
         <Text>
           <Text color={theme.muted}>By Sport</Text>{" "}
-          <Text color={theme.muted}>›</Text>{" "}
+          <Text color={theme.muted}>{">"}</Text>{" "}
           <Text bold color={theme.accent}>
             {sport}
           </Text>
@@ -123,45 +188,37 @@ export const EventList: React.FC<EventListProps> = ({
       <Box marginTop={1} flexDirection="column">
         {events.map((ev, i) => {
           const isSelected = i === cursor;
-          const isExpanded = i === expanded;
           const hasData = hasWinnerData(ev);
           return (
-            <Box
-              key={`${ev.sport}-${ev.event}-${String(i)}`}
-              flexDirection="column"
-            >
+            <Box key={`${ev.sport}-${ev.event}-${String(i)}`}>
               {isSelected ? (
                 <Text color={theme.accent} bold>
-                  ▸ {hasData ? "🏅 " : ""}
+                  ▸ {hasData ? "● " : "  "}
                   {ev.event}
                   {genderSuffix(ev.gender)}
                 </Text>
               ) : hasData ? (
                 <Text>
-                  {"  "}🏅 {ev.event}
+                  {"  "}
+                  <Text color={theme.success}>● </Text>
+                  {ev.event}
                   {genderSuffix(ev.gender)}
                 </Text>
               ) : (
                 <Text color={theme.muted}>
-                  {"  "}
+                  {"    "}
                   {ev.event}
                   {genderSuffix(ev.gender)}
                 </Text>
               )}
-              {isExpanded ? (
-                <Box flexDirection="column" marginLeft={2} marginBottom={1}>
-                  <WinnerLine medal="🥇" detail={ev.gold} />
-                  <WinnerLine medal="🥈" detail={ev.silver} />
-                  <WinnerLine medal="🥉" detail={ev.bronze} />
-                </Box>
-              ) : null}
             </Box>
           );
         })}
       </Box>
       <Box marginTop={1}>
         <Text color={theme.muted}>
-          ↑/↓ Navigate · Enter Expand · Esc Back · 🏅 has results
+          ↑/↓ Navigate · Enter Select · Esc Back ·{" "}
+          <Text color={theme.success}>●</Text> has results
         </Text>
       </Box>
     </Box>
