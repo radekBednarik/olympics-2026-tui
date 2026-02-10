@@ -1,13 +1,14 @@
 import { Box, Text, useInput, useStdout } from "ink";
 import type React from "react";
 import { useEffect, useMemo, useRef } from "react";
-import type { MedalWinner } from "../types.js";
+import type { MedalTableEntry, MedalWinner } from "../types.js";
 import { getTheme, MEDAL_COLORS } from "./theme.js";
 import { useScrollableList } from "./use-scrollable-list.js";
 
 interface CountryMedalDetailProps {
   country: string;
   medals: MedalWinner[];
+  medalTableEntry?: MedalTableEntry;
   isActive: boolean;
   onBack: () => void;
 }
@@ -77,6 +78,7 @@ function buildMedalRows(medals: MedalWinner[], country: string): MedalRow[] {
 export const CountryMedalDetail: React.FC<CountryMedalDetailProps> = ({
   country,
   medals,
+  medalTableEntry,
   isActive,
   onBack,
 }) => {
@@ -185,6 +187,15 @@ export const CountryMedalDetail: React.FC<CountryMedalDetailProps> = ({
           </Text>
         </Text>
       </Box>
+
+      {medalTableEntry && medalTableEntry.total !== rows.length && (
+        <Box marginLeft={1}>
+          <Text color={theme.muted} italic>
+            Medal table shows {medalTableEntry.total} — event results may not be
+            fully updated on Wikipedia yet.
+          </Text>
+        </Box>
+      )}
 
       <Box marginTop={1} flexDirection="column">
         <Text bold>

@@ -63,10 +63,12 @@ const MedalTableView: React.FC<{
   }
 
   if (selectedCountry) {
+    const matchingEntry = data.find((e) => e.country === selectedCountry);
     return (
       <CountryMedalDetail
         country={selectedCountry}
         medals={medalWinners}
+        {...(matchingEntry ? { medalTableEntry: matchingEntry } : {})}
         isActive={isActive}
         onBack={() => setSelectedCountry(null)}
       />
