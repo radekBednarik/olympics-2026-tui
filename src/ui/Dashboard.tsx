@@ -17,6 +17,7 @@ import { getTheme, MEDAL_COLORS } from "./theme.js";
 interface DashboardProps {
   scrapes: AppStore["scrapes"];
   medalDeltas: Map<string, MedalDeltas>;
+  onTabChange?: (tab: string) => void;
 }
 
 const MedalTableView: React.FC<{
@@ -212,12 +213,14 @@ const SportEventsView: React.FC<{
 export const Dashboard: React.FC<DashboardProps> = ({
   scrapes,
   medalDeltas,
+  onTabChange,
 }) => {
   const [activeTab, setActiveTab] = useState<string>("medalTable");
   const theme = getTheme();
 
   const handleTabChange = (name: string) => {
     setActiveTab(name);
+    onTabChange?.(name);
   };
 
   const activeScrape =

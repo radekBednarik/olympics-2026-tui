@@ -21,6 +21,7 @@ import {
 import {
   type AppStore,
   INITIAL_STORE,
+  MEDAL_URLS,
   type MedalDeltas,
   type MedalTableEntry,
   type ThemeVariant,
@@ -61,6 +62,7 @@ export const App = () => {
   const [_appSettings, setAppSettings] = useState<AppSettings>({ dataDir: "" });
   const [dataDir, setDataDir] = useState("");
   const [dataDirError, setDataDirError] = useState<string | undefined>();
+  const [activeTab, setActiveTab] = useState("medalTable");
 
   // Use ref to track scraping state in callback without dependency
   const isScrapingRef = useRef(isScraping);
@@ -332,7 +334,11 @@ export const App = () => {
       </Box>
 
       {view === "dashboard" ? (
-        <Dashboard scrapes={store.scrapes} medalDeltas={medalDeltas} />
+        <Dashboard
+          scrapes={store.scrapes}
+          medalDeltas={medalDeltas}
+          onTabChange={setActiveTab}
+        />
       ) : (
         <Settings
           interval={store.config.intervalMinutes}
@@ -350,8 +356,18 @@ export const App = () => {
         borderColor={theme.muted}
         flexDirection="column"
       >
-        <Text>Controls: [Q] Quit | [R] Refresh Now | [S] Settings</Text>
-        <Text color={theme.muted}>📁 Data: {dataDir}</Text>
+        <Box justifyContent="space-between">
+          <Text>Controls: [Q] Quit | [R] Refresh Now | [S] Settings</Text>
+        </Box>
+        <Box justifyContent="space-between">
+          <Text color={theme.muted}>Data: {dataDir}</Text>
+          <Text color={theme.muted}>
+            Source:{" "}
+            {activeTab === "medalTable"
+              ? MEDAL_URLS.medalTable
+              : MEDAL_URLS.medalWinners}
+          </Text>
+        </Box>
       </Box>
     </Box>
   );
