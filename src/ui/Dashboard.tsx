@@ -1,7 +1,7 @@
-import { Box, Text } from "ink";
+import { Box, Text, useInput } from "ink";
 import { Tab, Tabs } from "ink-tab";
 import type React from "react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   AppStore,
   MedalDeltas,
@@ -9,9 +9,16 @@ import type {
   MedalWinner,
 } from "../types.js";
 import { CategoryList } from "./CategoryList.js";
+import { CountryMedalDetail } from "./CountryMedalDetail.js";
 import { EventList } from "./EventList.js";
 import { MedalWinnersView } from "./MedalWinnersView.js";
 import { getTheme } from "./theme.js";
+
+const MEDAL_COLORS = {
+  gold: "#FFD700",
+  silver: "#C0C0C0",
+  bronze: "#CD7F32",
+} as const;
 
 interface DashboardProps {
   scrapes: AppStore["scrapes"];
@@ -21,14 +28,56 @@ interface DashboardProps {
 const MedalTableView: React.FC<{
   data: MedalTableEntry[];
   medalDeltas: Map<string, MedalDeltas>;
-}> = ({ data, medalDeltas }) => {
+  medalWinners: MedalWinner[];
+  isActive: boolean;
+}> = ({ data, medalDeltas, medalWinners, isActive }) => {
   const theme = getTheme();
+  const [cursor, setCursor] = useState(0);
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+  const mountedRef = useRef(false);
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      mountedRef.current = true;
+    }, 50);
+    return () => clearTimeout(id);
+  }, []);
+
+  useInput(
+    (_input, key) => {
+      if (selectedCountry !== null) return;
+      if (key.upArrow) {
+        setCursor((prev) => Math.max(0, prev - 1));
+      } else if (key.downArrow) {
+        setCursor((prev) => Math.min(data.length - 1, prev + 1));
+      } else if (key.return) {
+        if (!mountedRef.current) return;
+        const entry = data[cursor];
+        if (entry) {
+          setSelectedCountry(entry.country);
+        }
+      }
+    },
+    { isActive }
+  );
 
   if (data.length === 0) {
     return (
       <Text color={theme.warning}>No medal table data available yet.</Text>
     );
   }
+
+  if (selectedCountry) {
+    return (
+      <CountryMedalDetail
+        country={selectedCountry}
+        medals={medalWinners}
+        isActive={isActive}
+        onBack={() => setSelectedCountry(null)}
+      />
+    );
+  }
+
   const rW = 6;
   const cW = 20;
   const mW = 12;
@@ -48,20 +97,22 @@ const MedalTableView: React.FC<{
   return (
     <Box flexDirection="column">
       <Text bold>
+        {"  "}
         {"Rank".padEnd(rW)}
         {"Country".padEnd(cW)}
-        {"🥇".padEnd(mW - 1)}
-        {"🥈".padEnd(mW - 1)}
-        {"🥉".padEnd(mW - 1)}
+        <Text color={MEDAL_COLORS.gold}>{"●"}</Text>
+        {" Gold".padEnd(mW - 1)}
+        <Text color={MEDAL_COLORS.silver}>{"●"}</Text>
+        {" Silver".padEnd(mW - 1)}
+        <Text color={MEDAL_COLORS.bronze}>{"●"}</Text>
+        {" Bronze".padEnd(mW - 1)}
         {"Total".padEnd(mW)}
       </Text>
-      <Text>{"─".repeat(totalW)}</Text>
+      <Text>{"─".repeat(totalW + 2)}</Text>
       {data.map((row, index) => {
         const delta = medalDeltas.get(row.country);
-        const stripeBg =
-          index % 2 === 1
-            ? { backgroundColor: theme.surfaceDark as string }
-            : {};
+        const isSelected = index === cursor;
+        const prefix = isSelected ? "▸ " : "  ";
         const line =
           row.rank.padEnd(rW) +
           row.country.padEnd(cW) +
@@ -69,12 +120,32 @@ const MedalTableView: React.FC<{
           formatMedalCell(row.silver, delta, "silver", mW) +
           formatMedalCell(row.bronze, delta, "bronze", mW) +
           formatMedalCell(row.total, delta, "total", mW);
+
+        const textProps: {
+          backgroundColor?: string;
+          color?: string;
+        } = {};
+        if (index % 2 === 1) {
+          textProps.backgroundColor = theme.surfaceDark;
+        }
+        if (isSelected) {
+          textProps.color = theme.accent;
+        }
+
         return (
-          <Text key={`${row.rank}-${row.country}`} {...stripeBg}>
+          <Text
+            key={`${row.rank}-${row.country}`}
+            bold={isSelected}
+            {...textProps}
+          >
+            {prefix}
             {line}
           </Text>
         );
       })}
+      <Box marginTop={1}>
+        <Text color={theme.muted}>↑/↓ Navigate · Enter Details</Text>
+      </Box>
     </Box>
   );
 };
@@ -209,6 +280,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <MedalTableView
               data={scrapes.medalTable.data}
               medalDeltas={medalDeltas}
+              medalWinners={scrapes.medalWinners.data}
+              isActive={activeTab === "medalTable"}
             />
           ) : activeTab === "medalWinners" ? (
             <MedalWinnersView
