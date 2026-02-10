@@ -2,7 +2,7 @@ import { Box, Text, useInput, useStdout } from "ink";
 import type React from "react";
 import { useEffect, useMemo, useRef } from "react";
 import type { MedalWinner } from "../types.js";
-import { getTheme } from "./theme.js";
+import { getTheme, MEDAL_COLORS } from "./theme.js";
 import { useScrollableList } from "./use-scrollable-list.js";
 
 interface CountryMedalDetailProps {
@@ -20,12 +20,6 @@ const GENDER_LABEL: Record<string, string> = {
 
 const genderSuffix = (gender: string | undefined): string =>
   (gender && GENDER_LABEL[gender]) ?? "";
-
-const MEDAL_COLORS = {
-  gold: "#FFD700",
-  silver: "#C0C0C0",
-  bronze: "#CD7F32",
-} as const;
 
 const MEDAL_LABELS = {
   gold: "Gold",

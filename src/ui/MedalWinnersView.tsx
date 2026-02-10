@@ -2,7 +2,7 @@ import { Box, Text, useInput } from "ink";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 import type { MedalWinner, WinnerDetail } from "../types.js";
-import { getTheme } from "./theme.js";
+import { getTheme, MEDAL_COLORS } from "./theme.js";
 
 interface MedalWinnersViewProps {
   data: MedalWinner[];
@@ -68,22 +68,22 @@ const EventDetail: React.FC<{
       <Box marginTop={1} flexDirection="column" marginLeft={2}>
         <Text>
           {"  "}
-          <Text bold color={theme.accent}>
-            Gold:
+          <Text bold color={MEDAL_COLORS.gold}>
+            ● Gold:
           </Text>{" "}
           <Text bold>{formatWinner(event.gold)}</Text>
         </Text>
         <Text>
           {"  "}
-          <Text bold color={theme.accent}>
-            Silver:
+          <Text bold color={MEDAL_COLORS.silver}>
+            ● Silver:
           </Text>{" "}
           <Text>{formatWinner(event.silver)}</Text>
         </Text>
         <Text>
           {"  "}
-          <Text bold color={theme.accent}>
-            Bronze:
+          <Text bold color={MEDAL_COLORS.bronze}>
+            ● Bronze:
           </Text>{" "}
           <Text>{formatWinner(event.bronze)}</Text>
         </Text>

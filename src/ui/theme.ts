@@ -62,6 +62,12 @@ const themes: Record<ThemeVariant, Theme> = {
   light: tokyoNightLight,
 };
 
+export const MEDAL_COLORS = {
+  gold: "#FFD700",
+  silver: "#C0C0C0",
+  bronze: "#CD7F32",
+} as const;
+
 export const THEME_VARIANTS: ThemeVariant[] = ["dark", "storm", "light"];
 
 let activeVariant: ThemeVariant = "dark";

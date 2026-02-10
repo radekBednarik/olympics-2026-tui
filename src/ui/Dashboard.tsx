@@ -12,13 +12,7 @@ import { CategoryList } from "./CategoryList.js";
 import { CountryMedalDetail } from "./CountryMedalDetail.js";
 import { EventList } from "./EventList.js";
 import { MedalWinnersView } from "./MedalWinnersView.js";
-import { getTheme } from "./theme.js";
-
-const MEDAL_COLORS = {
-  gold: "#FFD700",
-  silver: "#C0C0C0",
-  bronze: "#CD7F32",
-} as const;
+import { getTheme, MEDAL_COLORS } from "./theme.js";
 
 interface DashboardProps {
   scrapes: AppStore["scrapes"];
