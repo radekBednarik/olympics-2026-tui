@@ -53,11 +53,11 @@ The application stores two separate files:
 
 ### Default Locations
 
-| OS      | Settings (`settings.json`)                              | Data (`store.json`)                                  |
-| ------- | ------------------------------------------------------- | ---------------------------------------------------- |
-| Linux   | `~/.config/olympics-2026/`                              | `~/.local/share/olympics-2026/`                      |
-| macOS   | `~/Library/Application Support/olympics-2026/`          | `~/Library/Application Support/olympics-2026/`       |
-| Windows | `%APPDATA%\olympics-2026\`                              | `%LOCALAPPDATA%\olympics-2026\`                      |
+| OS      | Settings (`settings.json`)                     | Data (`store.json`)                            |
+| ------- | ---------------------------------------------- | ---------------------------------------------- |
+| Linux   | `~/.config/olympics-2026/`                     | `~/.local/share/olympics-2026/`                |
+| macOS   | `~/Library/Application Support/olympics-2026/` | `~/Library/Application Support/olympics-2026/` |
+| Windows | `%APPDATA%\olympics-2026\`                     | `%LOCALAPPDATA%\olympics-2026\`                |
 
 On Linux, `XDG_CONFIG_HOME` and `XDG_DATA_HOME` are respected when set.
 
@@ -87,6 +87,10 @@ pnpm build
 # Lint & format (auto-fix)
 pnpm biome:check
 ```
+
+## Built With
+
+This application was created using [OpenCode](https://opencode.ai) and [Claude Opus 4.6](https://www.anthropic.com/claude) by Anthropic.
 
 ## License
 
