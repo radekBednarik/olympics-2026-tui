@@ -44,6 +44,14 @@ pnpm start
 
 In **Settings** you can change the auto-refresh interval (in minutes), select a theme, and set a custom data directory. Three Tokyo Night variants are available: **dark** (default), **storm**, and **light** — use `←`/`→` to cycle through them. Use `Tab` to switch between fields. Press `Enter` to save or `Esc` to cancel.
 
+## Terminal compatibility
+
+There is a lot of terminal emulators in the wild, and I really did not care to have this running in all of them. The app is developed and tested primarily on Windows Terminal on WSL2 Ubuntu 24.04 LTS, so best experience is guaranteed there.
+
+It was also tested on Ubuntu 24.04 LTS on Ghostty and WezTerm with very nice performance.
+
+WezTerm on Windows on WSL2 has flickering issues.
+
 ## Data Storage
 
 The application stores two separate files:
