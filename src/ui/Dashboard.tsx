@@ -11,7 +11,6 @@ import type {
 import { CategoryList } from "./CategoryList.js";
 import { CountryMedalDetail } from "./CountryMedalDetail.js";
 import { EventList } from "./EventList.js";
-import { MedalWinnersView } from "./MedalWinnersView.js";
 import { getTheme, MEDAL_COLORS } from "./theme.js";
 
 interface DashboardProps {
@@ -232,7 +231,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
     <Box flexDirection="column" padding={1} borderStyle="single" flexGrow={1}>
       <Tabs onChange={handleTabChange}>
         <Tab name="medalTable">Medal Table</Tab>
-        <Tab name="medalWinners">Medal Winners</Tab>
         <Tab name="bySport">By Sport</Tab>
       </Tabs>
 
@@ -281,11 +279,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
               medalDeltas={medalDeltas}
               medalWinners={scrapes.medalWinners.data}
               isActive={activeTab === "medalTable"}
-            />
-          ) : activeTab === "medalWinners" ? (
-            <MedalWinnersView
-              data={scrapes.medalWinners.data}
-              isActive={activeTab === "medalWinners"}
             />
           ) : (
             <SportEventsView
