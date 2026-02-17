@@ -70,6 +70,8 @@ export const Settings: React.FC<SettingsProps> = ({
         cycleTheme(-1);
       } else if (key.rightArrow) {
         cycleTheme(1);
+      } else if (key.return) {
+        handleSubmit();
       }
     }
   });

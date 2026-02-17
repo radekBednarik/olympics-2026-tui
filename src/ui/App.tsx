@@ -239,7 +239,7 @@ export const App = () => {
       }
     } else if (view === "settings") {
       if (key.escape) {
-        setView("dashboard");
+        handleSettingsBack();
       }
     }
   });
