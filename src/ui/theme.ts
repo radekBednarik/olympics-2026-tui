@@ -42,24 +42,9 @@ const tokyoNightStorm: Theme = {
   surfaceDark: "#1a1b2e",
 };
 
-const tokyoNightLight: Theme = {
-  background: "#d5d6db",
-  foreground: "#343b58",
-  brightText: "#1a1b26",
-  muted: "#9699a3",
-  accent: "#34548a",
-  info: "#166775",
-  success: "#485e30",
-  warning: "#8f5e15",
-  error: "#8c4351",
-  surface: "#d5d6db",
-  surfaceDark: "#c4c5ca",
-};
-
 const themes: Record<ThemeVariant, Theme> = {
   dark: tokyoNightDark,
   storm: tokyoNightStorm,
-  light: tokyoNightLight,
 };
 
 export const MEDAL_COLORS = {
@@ -68,7 +53,7 @@ export const MEDAL_COLORS = {
   bronze: "#CD7F32",
 } as const;
 
-export const THEME_VARIANTS: ThemeVariant[] = ["dark", "storm", "light"];
+export const THEME_VARIANTS: ThemeVariant[] = ["dark", "storm"];
 
 let activeVariant: ThemeVariant = "dark";
 

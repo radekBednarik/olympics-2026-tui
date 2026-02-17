@@ -1,4 +1,4 @@
-export type ThemeVariant = "dark" | "storm" | "light";
+export type ThemeVariant = "dark" | "storm";
 
 export type ScrapeStatus = "PENDING" | "NO_DATA" | "DATA_AVAILABLE" | "ERROR";
 

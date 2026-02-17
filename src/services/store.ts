@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { type AppStore, INITIAL_STORE } from "../types.js";
+import { THEME_VARIANTS } from "../ui/theme.js";
 
 const STORE_FILENAME = "store.json";
 
@@ -17,8 +18,8 @@ export const loadStore = (dataDir: string): AppStore => {
     }
     const data = fs.readFileSync(filePath, "utf-8");
     const parsed = JSON.parse(data) as AppStore;
-    // Graceful fallback for stores without a theme field
-    if (!parsed.config.theme) {
+    // Graceful fallback for stores without a theme field or with an invalid theme
+    if (!parsed.config.theme || !THEME_VARIANTS.includes(parsed.config.theme)) {
       parsed.config.theme = INITIAL_STORE.config.theme;
     }
     return parsed;
