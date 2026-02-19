@@ -75,7 +75,10 @@ const MedalTableView: React.FC<{
   }
 
   const rW = 6;
-  const cW = 20;
+  const cW = Math.max(
+    "Country".length,
+    ...data.map((row) => row.country.length)
+  );
   const mW = 12;
   const totalW = rW + cW + mW * 4;
 
